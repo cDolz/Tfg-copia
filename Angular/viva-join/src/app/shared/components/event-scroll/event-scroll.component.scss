@@ -1,0 +1,60 @@
+::ng-deep {
+  swiper:not(:hover) {
+    .swiper-button-prev,
+    .swiper-button-next {
+      display: none;
+    }
+  }
+
+  .swiper-slide {
+    width: 180px;
+    display: flex;
+    flex-flow: column;
+    margin: 12px 0 12px 0;
+    transition: transform 0.3s ease;
+  }
+
+  .swiper-slide:hover {
+    transform: scale(1.12);
+  }
+
+  .swiper-slide:first-child {
+    margin-left: 15px;
+  }
+
+  .swiper-slide:last-child {
+    margin-right: 15px;
+  }
+
+  .swiper-button-prev.swiper-button-disabled,
+  .swiper-button-next.swiper-button-disabled {
+    opacity: 0;
+  }
+
+  .swiper-button-prev,
+  .swiper-button-next {
+    color: black;
+    scale: 0.75;
+  }
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+img {
+  width: 180px;
+  height: 180px;
+  transition: opacity 0.3s ease;
+}
+
+span {
+  transition: opacity 0.3s ease;
+}
+
+.div-swiper {
+  display: flex;
+  flex-flow: column;
+  transition: transform 0.3s ease;
+}

@@ -1,0 +1,35 @@
+nav {
+    width: 80%;    
+}
+
+#navbar-list {
+    list-style: none;
+    padding: 0;    
+}
+
+#navbar-list li {          
+    background-color:rgba(255, 136, 0, 0.650);    
+    padding: 0;    
+    transition: background-color 0.2s ease;
+}
+
+#navbar-list li:first-child {    
+    border-bottom-left-radius: 15px;
+}
+
+#navbar-list li:last-child {    
+    border-bottom-right-radius: 15px;
+}
+
+#navbar-list li:hover {
+    background-color: rgba(255, 136, 0, 0.450);
+}
+
+#navbar-list li a{
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 10px 0 10px 0;
+    text-decoration: none;
+    color:black;
+}

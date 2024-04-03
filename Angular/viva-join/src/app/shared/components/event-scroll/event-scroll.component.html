@@ -1,0 +1,19 @@
+<swiper #swiper
+  [slidesPerView]="'auto'"
+  [navigation]="true"
+  [slidesPerGroup]="4"
+  [allowTouchMove]="false"
+  [speed]="700"
+  [spaceBetween]="15"  
+>
+  <ng-template swiperSlide
+    *ngFor="let event of events; let i = index"
+  >
+  <div #divSwiper class="div-swiper">
+    <a href="" (mouseenter)="animateSliders(i)" (mouseleave)="resetSliders(i)">
+      <img src="assets\images\imagenPrueba.jpeg" alt="" #slideImg />
+      <span #slideSpan> {{ event }} </span>
+    </a>
+  </div>
+  </ng-template>
+</swiper>

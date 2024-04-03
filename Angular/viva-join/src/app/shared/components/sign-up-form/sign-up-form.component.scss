@@ -1,0 +1,54 @@
+#sign-up-form-container{
+    background-color: rgba(255, 166, 0, 0.151);
+    width: 35%;
+    border: 2px solid rgb(255, 136, 0);
+    border-radius: 12px;
+}
+
+#sign-up-form-container input{
+    outline: none;
+    border: 2px solid rgb(192, 192, 192);
+    margin-top: 20px;
+    padding: 10px 0 10px 8px;    
+    border-radius: 12px;
+}
+
+#sign-up-form-container div{
+    padding: 0;
+}
+
+#name{
+    width: 40%;
+    margin-right: 10px;
+}
+
+#sign-up-form-container input:focus{
+    border: 2px solid rgb(255, 136, 0);    
+}
+
+#birth-date{
+    margin-top: 20px;
+}
+
+#birth-date select{
+    width: 33%;
+    padding: 10px 0 10px 8px;
+    border-radius: 12px;
+}
+
+#birth-date select:first-child{
+    width: 30%;
+}
+
+#sign-up-button{
+    background-color: rgba(0, 38, 255, 0.700);
+    color: white;
+    margin: 20px 0 20px 0;         
+    border: none;
+    border-radius: 12px;
+    transition: background-color 0.2s ease;
+}
+
+#sign-up-button:hover{
+    background-color: rgba(0, 38, 255, 0.840);  
+}
