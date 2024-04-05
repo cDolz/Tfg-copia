@@ -50,18 +50,11 @@ form > input:last-child {
     background-color: rgba(0, 38, 255, 0.700);
     border: none;
     margin-bottom: 10px;
-    width: 90%;
+    width: 80%;
+    padding: 15px 0 15px 0;
+    transition: background-color 0.2s ease;
 }
 
-// #sign-up-button{
-//     
-//     
-//     margin: 20px 0 20px 0;         
-//     border: none;
-//     border-radius: 12px;
-//     transition: background-color 0.2s ease;
-// }
-
-// #sign-up-button:hover{
-//     background-color: rgba(0, 38, 255, 0.840);  
-// }
+form > input:last-child:hover{
+     background-color: rgba(0, 38, 255, 0.840);
+}

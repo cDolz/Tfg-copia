@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { SignUpService } from '../../../services/sign-up.service';
 
 @Component({
   selector: 'app-shared-sign-up-form',
@@ -7,9 +8,6 @@ import { FormControl, FormGroup } from '@angular/forms';
   styleUrl: './sign-up-form.component.scss'
 })
 export class SignUpFormComponent {
-onSubmit() {
-throw new Error('Method not implemented.');
-}
 
   // cojo el año actual
   currentYear: number = new Date().getFullYear();
@@ -27,7 +25,11 @@ throw new Error('Method not implemented.');
   // array del año actual -120 años para el select
   years: number[] = Array.from({ length: 120 }, (_, i) => this.currentYear - i);
 
+  // Creo y enlazo el reactive form en el constructor
   form: FormGroup;
+
+ // inyecto mi sign-up service
+  signUpService = inject(SignUpService);
 
   constructor() {
     this.form = new FormGroup({
@@ -38,4 +40,10 @@ throw new Error('Method not implemented.');
     })
   }
 
+  // envío datos cuando se pulse el boton de registro
+  async onSubmit() {
+    const response = await this.signUpService.register(this.form.value);
+    console.log(response);
+  }  
+  
 }
