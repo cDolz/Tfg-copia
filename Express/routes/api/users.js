@@ -11,7 +11,10 @@ router.post('/sign-up', async (req, res) => {
         req.body.password = bcrypt.hashSync(req.body.password, 12);
 
         // Introducimos los datos en la BBDD con .create
-        const user = await User.create(req.body);
+        await User.create(req.body);
+
+        // enviamos respuesta de éxito
+        res.json({ message: 'Registro exitoso' });
         
     } catch (error) {
         res.json({ error: error.message });

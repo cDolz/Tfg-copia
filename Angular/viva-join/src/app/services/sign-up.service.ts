@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { firstValueFrom } from 'rxjs';
+import { firstValueFrom, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -18,12 +18,8 @@ export class SignUpService {
     this.baseUrl = 'http://localhost:3000/api/users';
   }
 
-  register(formValue: any) {
-    // recojo el primer valor emitido por mi observable
-    return firstValueFrom(
-      // apunto a mi url back y le paso los valores de mi formulario que quiero registrar
-      this.httpClient.post<any>(`${this.baseUrl}/sign-up`, formValue)
-    );
+  register(formValue: any): Observable<any> {    
+    return this.httpClient.post<any>(`${this.baseUrl}/sign-up`, formValue);    
   }
 
 }

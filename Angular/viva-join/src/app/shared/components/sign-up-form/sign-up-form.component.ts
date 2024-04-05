@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { SignUpService } from '../../../services/sign-up.service';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-shared-sign-up-form',
@@ -28,7 +29,7 @@ export class SignUpFormComponent {
   // Creo y enlazo el reactive form en el constructor
   form: FormGroup;
 
- // inyecto mi sign-up service
+  // inyecto mi sign-up service
   signUpService = inject(SignUpService);
 
   constructor() {
@@ -36,14 +37,13 @@ export class SignUpFormComponent {
       email: new FormControl(),
       password: new FormControl(),
       name: new FormControl(),
-      surname: new FormControl(),      
+      surname: new FormControl(),
     })
   }
 
   // envío datos cuando se pulse el boton de registro
-  async onSubmit() {
-    const response = await this.signUpService.register(this.form.value);
-    console.log(response);
-  }  
-  
+  onSubmit() {
+    this.signUpService.register(this.form.value)
+    .pipe(take(1)).subscribe(x => console.log(x));
+  }
 }
