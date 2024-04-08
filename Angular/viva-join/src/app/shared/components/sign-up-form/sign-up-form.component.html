@@ -1,23 +1,29 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
   <div class="name-surname">
-    <input class="form-control" type="text" placeholder="Nombre" formControlName="name" />
-    <input class="form-control" type="text" placeholder="Apellidos" formControlName="surname" />
+    <div class="name">
+      <input type="text" placeholder="Nombre" formControlName="name" />
+      <div *ngIf="f['name'].touched && f['name'].invalid">
+        <span *ngIf="f['name']?.errors?.['required']">*Campo requerido</span>
+      </div>
+    </div>
+    <input type="text" placeholder="Apellidos" formControlName="surname" />
   </div>
-  <input class="form-control" type="email" placeholder="Correo electrónico" formControlName="email" />
-  <input class="form-control" type="password" placeholder="Contraseña" formControlName="password" />
-  <input class="form-control" type="password" placeholder="Repetir contraseña" />
+  <input type="email" placeholder="Correo electrónico" formControlName="email" />
+  <input type="password" placeholder="Contraseña" formControlName="password" />
+  <input type="password" placeholder="Repetir contraseña" />
   <div class="date">
-    <select>
+    <select formControlName="day">
       <option *ngFor="let day of days" [value]="day">{{ day }}</option>
     </select>
-    <select>
+    <select formControlName="month">
       <option *ngFor="let month of months" [value]="month">
         {{ month }}
       </option>
     </select>
-    <select>
+    <select formControlName="year">
       <option *ngFor="let year of years" [value]="year">{{ year }}</option>
     </select>
   </div>
-  <input type="submit" value="Registrarte">
+  <button [disabled]="!form || !form.valid || !form.dirty" type="submit"
+    class="btn btn-primary mt-3">Registrarse</button>
 </form>

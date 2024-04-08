@@ -7,7 +7,7 @@ const userSchema = new Schema({
     password: String,
     name: String,
     surname: String,
-    birthDate: String
+    birthdate: String
 });
 
 module.exports = model('users', userSchema);

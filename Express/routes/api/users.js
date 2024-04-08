@@ -22,6 +22,7 @@ router.post('/sign-up', async (req, res) => {
 });
 
 router.post('/login', async (req, res) => {
+    
     try {      
         // Compruebo email
         const user = await User.findOne({ email: req.body.email });

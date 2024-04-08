@@ -3,5 +3,5 @@ export interface UserData {
     password: string,
     name: string,
     surname: string,
-    birthDate: string
+    birthdate: string
 }
