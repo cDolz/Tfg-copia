@@ -59,7 +59,7 @@ export class SignUpFormComponent implements OnDestroy {
       year:['2024']
     })
   }
-
+  
   // envío datos cuando se pulse el boton de registro
   onSubmit() {    
     this.register = {
