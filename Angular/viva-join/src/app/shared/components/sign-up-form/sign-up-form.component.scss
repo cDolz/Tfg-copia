@@ -10,13 +10,16 @@ form {
 }
 
 input {
-    border: 2px solid rgb(192, 192, 192);
+    width: 100%;
     padding: 10px 0 10px 10px;
+    margin-top: 22px;
+    border: 2px solid rgb(192, 192, 192);        
     border-radius: 12px;
-    margin-top: 20px;
+    
 }
 
 input:focus {
+    outline: none;
     border-color: rgb(255, 136, 0);
     box-shadow: none;
 }
@@ -25,27 +28,34 @@ input:focus {
     display: flex;
     flex-direction: row;
     width: 100%;
+    justify-content: space-between;
 }
 
-.name-surname > input:first-child {
-    margin-right: 10px;
+.name-surname > div{
+    width: 49%;
 }
 
 .name {
     display: flex;
     flex-direction: column;
-    align-items: center;
 }
 
+.input-div {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
 
-.name > div > span {
+.error-span {
+    padding-left: 5px;
+    position: fixed;
     font-size: 12px;
     color: red;
 }
 
 .date {
     width: 100%;
-    margin-top: 20px;
+    margin-top: 22px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -56,6 +66,7 @@ input:focus {
     padding: 10px;
     border-radius: 12px;
 }
+
 
 form > input:last-child {
     color: white;

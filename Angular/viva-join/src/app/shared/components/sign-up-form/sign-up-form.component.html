@@ -3,14 +3,37 @@
     <div class="name">
       <input type="text" placeholder="Nombre" formControlName="name" />
       <div *ngIf="f['name'].touched && f['name'].invalid">
-        <span *ngIf="f['name']?.errors?.['required']">*Campo requerido</span>
+        <span class="error-span" *ngIf="f['name']?.errors?.['required']">*Campo requerido</span>
       </div>
     </div>
-    <input type="text" placeholder="Apellidos" formControlName="surname" />
+    <div class="name">
+      <input type="text" placeholder="Apellidos" formControlName="surname" />
+      <div *ngIf="f['surname'].touched && f['surname'].invalid">
+        <span class="error-span" *ngIf="f['surname']?.errors?.['required']">*Campo requerido</span>
+      </div>
+    </div>
   </div>
-  <input type="email" placeholder="Correo electrónico" formControlName="email" />
-  <input type="password" placeholder="Contraseña" formControlName="password" />
-  <input type="password" placeholder="Repetir contraseña" />
+  <div class="input-div">
+    <input type="email" placeholder="Correo electrónico" formControlName="email" />
+    <div *ngIf="f['email'].touched && f['email'].invalid">
+      <span class="error-span" *ngIf="f['email']?.errors?.['required']">*Campo requerido</span>
+      <span class="error-span" *ngIf="f['email']?.errors?.['email']">*Formato de email incorrecto</span>
+    </div>
+  </div>
+  <div class="input-div">
+    <input type="password" placeholder="Contraseña" formControlName="password" />
+    <div *ngIf="f['password'].touched && f['password'].invalid">
+      <span class="error-span" *ngIf="f['password']?.errors?.['required']">*Campo requerido</span>
+      <span class="error-span" *ngIf="f['password']?.errors?.['minlength'] 
+      || f['password']?.errors?.['maxlength']
+      || f['password']?.errors?.['pattern']">*La contraseña debe tener entre 8 y 20 caracteres y contener al menos<br>
+      una minúscula, una mayúscula, un número y un carácter especial</span>      
+    </div>
+  </div>
+  <div class="input-div">
+    <input type="password" placeholder="Repetir contraseña" />
+  </div>  
+  
   <div class="date">
     <select formControlName="day">
       <option *ngFor="let day of days" [value]="day">{{ day }}</option>

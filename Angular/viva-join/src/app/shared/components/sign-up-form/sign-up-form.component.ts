@@ -27,29 +27,29 @@ export class SignUpFormComponent implements OnDestroy {
   // array del año actual -120 años para el select
   years: number[] = Array.from({ length: 120 }, (_, i) => this.currentYear - i);
 
-  // Creo y enlazo el reactive form en el constructor
+  // Creo y enlazo el reactive form en el constructor, utilizo mi model
   form!: FormGroup;
-
   register!: UserData;
 
-  // inyecto mi sign-up service
+  // inyecciones
   signUpService = inject(SignUpService);
-
   formBuilder = inject(FormBuilder);
 
+  // instancio mi observable para gestionar la desuscripción
   private unsubscribe$ = new Subject<void>();
 
   constructor() {
     this.initForm();
   }
 
+  // inicio mi formulario con formBuilder, añado validaciones
   private initForm() {
     this.form = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [
         Validators.required,
         Validators.minLength(8),
-        Validators.maxLength(20),
+        Validators.maxLength(30),
         Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}$')
       ]],
       name: ['', [Validators.required]],
@@ -61,7 +61,9 @@ export class SignUpFormComponent implements OnDestroy {
   }
   
   // envío datos cuando se pulse el boton de registro
-  onSubmit() {    
+  onSubmit() {
+
+    // reasigno los valores para que concuerden con mi model, fecha concatenada
     this.register = {
       email: this.form.value.email,
       password: this.form.value.password,
@@ -69,16 +71,19 @@ export class SignUpFormComponent implements OnDestroy {
       surname: this.form.value.surname,
       birthdate: `${this.form.value.day}-${this.form.value.month}-${this.form.value.year}`
     };
-    console.log(this.register);
+
+    // me subscribo a mi servicio hasta que el componente se descruya
     this.signUpService.register(this.register)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((v) => console.info(v));
   }
 
+  // facilito el acceso a mis controles del formulario
   get f() {
     return this.form.controls;
   }
 
+  // me desuscribo de mi servicio al destruirse el componente
   ngOnDestroy() {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
