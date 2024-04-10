@@ -1,83 +1,133 @@
+$border-untouched-color: rgb(192, 192, 192);
+$border-color: rgb(255, 136, 0);
+$error-color: rgb(210, 1, 1);
+$button-color: rgba(0, 38, 255, 0.700);
+$button-color-disabled: rgba(0, 38, 255, 0.400);
+$button-color-hover: rgba(0, 38, 255, 0.840);
+
 form {
     display: flex;
-    flex-direction: column;  
-    align-items: center;  
+    flex-direction: column;
+    align-items: center;
     background-color: rgba(255, 166, 0, 0.151);
     width: 35%;
-    border: 2px solid rgb(255, 136, 0);
+    border: 2px solid $border-color;
     border-radius: 12px;
-    padding: 10px 10px 10px 10px;
+    padding: 10px;
 }
 
 input {
     width: 100%;
     padding: 10px 0 10px 10px;
-    margin-top: 22px;
-    border: 2px solid rgb(192, 192, 192);        
+    margin-top: 20px;
+    border: 2px solid $border-untouched-color;
     border-radius: 12px;
-    
+
+    &:focus, &.ng-valid {
+        outline: none;
+        border-color: $border-color;
+        box-shadow: none;
+    }
+
+    &.ng-touched.ng-invalid {
+        border: 2px solid $error-color;
+    }
+
 }
 
-input:focus {
-    outline: none;
-    border-color: rgb(255, 136, 0);
-    box-shadow: none;
-}
-
-.name-surname {
+.name-surname, .name, .input-div, .date {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     width: 100%;
-    justify-content: space-between;
+
 }
 
-.name-surname > div{
-    width: 49%;
+.name-surname, .date {
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 .name {
-    display: flex;
-    flex-direction: column;
+    width: 49%;
 }
 
-.input-div {
+.input-icon-container {
     display: flex;
-    flex-direction: column;
-    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    justify-content: end;
+}
+
+i {
+    position: absolute;
+    padding: 20px 10px 0 0;
+    color: $error-color;
 }
 
 .error-span {
-    padding-left: 5px;
-    position: fixed;
+    margin-left: 10px;
+    padding: 10px;
+    position: absolute;
     font-size: 12px;
-    color: red;
+    background-color: $error-color;
+    color: white;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
 }
 
 .date {
-    width: 100%;
-    margin-top: 22px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    margin-top: 25px;
 }
 
-.date > select {
+.date-errors{
+    display: flex;
+    width: 100%;
+    height: 25px;
+    justify-content: end;
+}
+
+.date-errors > i{    
+    padding: 0;
+}
+
+.date-errors > span {    
+    border-top-right-radius: 12px;
+}
+
+.date select {
     width: 31%;
     padding: 10px;
+    border: 2px solid $border-untouched-color;
     border-radius: 12px;
+
+    &:focus, &.ng-valid {
+        outline: none;
+        border-color: $border-color;
+        box-shadow: none;
+    }
+
+    &.ng-touched.ng-invalid {
+        border: 2px solid $error-color;
+    }
+
 }
 
-
-form > input:last-child {
+button {
     color: white;
-    background-color: rgba(0, 38, 255, 0.700);
+    background-color: $button-color;
     border: none;
+    border-radius: 12px;
     margin-bottom: 10px;
     width: 80%;
-    padding: 15px 0 15px 0;
+    padding: 20px 0;
     transition: background-color 0.2s ease;
-}
 
-form > input:last-child:hover{
-     background-color: rgba(0, 38, 255, 0.840);
+    &:disabled {
+        background-color: $button-color-disabled;
+    }
+
+    &:not(:disabled):hover {
+        background-color: $button-color-hover;
+    }
+
 }
