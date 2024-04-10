@@ -7,7 +7,7 @@ import { environment } from '../../environments/environments';
   providedIn: 'root'
 })
 
-export class SignUpService {
+export class AuthService {
 
   // inyecto mi http client para poder usarlo 
   private httpClient = inject(HttpClient);
@@ -21,6 +21,10 @@ export class SignUpService {
 
   register(formValue: any): Observable<any> {
     return this.httpClient.post<any>(`${this.baseUrl}/users/sign-up`, formValue);    
+  }
+
+  login(formValue: any): Observable<any> {
+    return this.httpClient.post<any>(`${this.baseUrl}/users/login`, formValue);
   }
 
 }

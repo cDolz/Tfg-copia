@@ -17,7 +17,11 @@ router.post('/sign-up', async (req, res) => {
         res.json({ message: 'Registro exitoso' });
         
     } catch (error) {
-        res.json({ error: error.message });
+        if (error.code === 11000) {
+            res.status(400).json({ errorCode: 11000 });
+        } else {
+            res.json({ errorCode: error.code });
+        }
     }
 });
 

@@ -1,13 +1,15 @@
-import { Component, OnDestroy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subject, takeUntil } from 'rxjs';
-import { SignUpService } from '../../../services/sign-up.service';
+import { AuthService } from '../../../services/auth.service';
 import { UserData } from '../../../models/user.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-shared-sign-up-form',
   templateUrl: './sign-up-form.component.html',
-  styleUrl: './sign-up-form.component.scss'
+  styleUrl: './sign-up-form.component.scss',
+  // TODO changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SignUpFormComponent implements OnDestroy {
 
@@ -18,20 +20,7 @@ export class SignUpFormComponent implements OnDestroy {
   days: number[] = Array.from({ length: 31 }, (_, i) => i + 1);
 
   // array para el select de los meses
-  months: { name: string, number: string }[] = [
-    { name: 'Enero', number: '01' },
-    { name: 'Febrero', number: '02' },
-    { name: 'Marzo', number: '03' },
-    { name: 'Abril', number: '04' },
-    { name: 'Mayo', number: '05' },
-    { name: 'Junio', number: '06' },
-    { name: 'Julio', number: '07' },
-    { name: 'Agosto', number: '08' },
-    { name: 'Septiembre', number: '09' },
-    { name: 'Octubre', number: '10' },
-    { name: 'Noviembre', number: '11' },
-    { name: 'Diciembre', number: '12' }
-  ];
+  months: { name: string, number: string }[] = this.generateMonths();
 
   // array del año actual -120 años para el select
   years: number[] = Array.from({ length: 120 }, (_, i) => this.currentYear - i);
@@ -46,14 +35,22 @@ export class SignUpFormComponent implements OnDestroy {
 
   // Creo y enlazo el reactive form en el constructor, utilizo mi model
   form!: FormGroup;
-  register!: UserData;
+  register!: UserData;  
 
   // instancio mi observable para gestionar la desuscripción
   private unsubscribe$ = new Subject<void>();
 
   // inyecciones en el constructor
-  constructor(private formBuilder: FormBuilder, private signUpService: SignUpService) {
+  constructor(private formBuilder: FormBuilder, private authService: AuthService, private router: Router) {
     this.initForm();
+  }
+
+  // genero los meses para el select
+  generateMonths() {
+    const monthNames = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+    return monthNames.map((month, index) => {
+      return { name: month, number: (index + 1).toString().padStart(2, '0') };
+    });
   }
 
   // marco los select como touched cuando haga focus en uno de ellos
@@ -79,13 +76,14 @@ export class SignUpFormComponent implements OnDestroy {
       day: ['01'],
       month: ['01'],
       year: ['2024']
-    }, {
-      // añado validación personalizada como segundo parámetro
-      validators: [
-        this.MustMatch('password', 'repeatPassword'),
-        this.isAdult('day', 'month', 'year')
-      ]
+    // }, {
+    //   // añado validación personalizada como segundo parámetro
+    //   validators: [
+    //     this.MustMatch('password', 'repeatPassword'),
+    //     this.isAdult('day', 'month', 'year')
+    //   ]    
     });
+    this.form.setValidators(this.mustMatch('password', 'repeatPassword'));
   }
 
   // facilito el acceso a mis controles del formulario
@@ -108,11 +106,9 @@ export class SignUpFormComponent implements OnDestroy {
 
       // compruebo si los valores son iguales
       if (control.value !== matchingControl.value) {
-        // si no lo son seteo el error
-        matchingControl.setErrors({ 'mustMatch': true });
+        matchingControl.setErrors({ 'mustMatch': true }); // si no lo son seteo el error
       } else {
-        // si son iguales los elimino
-        matchingControl.setErrors(null);
+        matchingControl.setErrors(null); // si son iguales los elimino
       }
     }
   }
@@ -149,18 +145,26 @@ export class SignUpFormComponent implements OnDestroy {
   onSubmit() {
 
     // reasigno los valores para que concuerden con mi model, fecha concatenada
+    const { email, password, name, surname, day, month, year } = this.form.value;
     this.register = {
-      email: this.form.value.email,
-      password: this.form.value.password,
-      name: this.form.value.name,
-      surname: this.form.value.surname,
-      birthdate: `${this.form.value.day}/${this.form.value.month}/${this.form.value.year}`
+      email,
+      password,
+      name,
+      surname,
+      birthdate: `${day}/${month}/${year}`
     };
 
-    // me subscribo a mi servicio hasta que el componente se descruya
-    this.signUpService.register(this.register)
+    // me subscribo a mi servicio hasta que el componente se destruya
+    this.authService.register(this.register)
       .pipe(takeUntil(this.unsubscribe$))
-      .subscribe((v) => console.info(v));
+      .subscribe({
+        next: () => {
+          this.router.navigate(['/login']);
+        },
+        error: (error) => {
+          console.error(error);
+        }
+      });
   }
 
   // me desuscribo de mi servicio al destruirse el componente
