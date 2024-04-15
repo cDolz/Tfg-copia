@@ -15,44 +15,62 @@ router.post('/sign-up', async (req, res) => {
 
         // enviamos respuesta de éxito
         res.json({ message: 'Registro exitoso' });
-        
+
     } catch (error) {
-        if (error.code === 11000) {
-            res.status(400).json({ errorCode: 11000 });
-        } else {
-            res.json({ errorCode: error.code });
-        }
+        res.status(500).json({ error: error.message });
     }
 });
 
+router.post('/check-email', async (req, res) => {
+    const { email } = req.body;
+  
+    try {
+      const user = await User.findOne({ email });
+  
+      if (user) {
+        // If a user with the email exists, return an error
+        res.json({ error: 'Email is already in use' });
+      } else {
+        // If no user with the email exists, return success
+        res.json({ success: true });
+      }
+    } catch (err) {
+      // Handle any errors that occur
+      console.error(err);
+      res.status(500).json({ error: 'An error occurred while checking the email' });
+    }
+  });
+
+
 router.post('/login', async (req, res) => {
-    
-    try {      
+
+    try {
         // Compruebo email
         const user = await User.findOne({ email: req.body.email });
 
         if (!user) {
-            return res.json( { error: 'El email o la contraseña no son correctos'} );
+            return res.status(401).json({ error: 'El email o la contraseña no son correctos' });
         }
 
         // compruebo contraseña
         const passwordEquals = bcrypt.compareSync(req.body.password, user.password);
-        
+
         if (!passwordEquals) {
-            return res.json( { error: 'El email o la contraseña no son correctos'} );
+            return res.status(401).json({ error: 'El email o la contraseña no son correctos' });
         }
 
         // devuelvo token en caso de login correcto
-        res.json({token: createToken(user)});
+        res.json({ token: createToken(user) });
 
     } catch (error) {
-        res.json({ error: error.message });
+        res.status(500).json({ error: error.message });
     }
+
 });
 
 // creo el token
 function createToken(user) {
-    const payload = { userId: user._id };    
+    const payload = { userId: user._id };
     return jwt.sign(payload, 'token');
 }
 

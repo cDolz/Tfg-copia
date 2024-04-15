@@ -23,6 +23,10 @@ export class AuthService {
     return this.httpClient.post<any>(`${this.baseUrl}/users/sign-up`, formValue);    
   }
 
+  checkDuplicateEmail(data: { email: string }): Observable<any> {
+    return this.httpClient.post<any>(`${this.baseUrl}/users/check-email`, data);
+  }
+
   login(formValue: any): Observable<any> {
     return this.httpClient.post<any>(`${this.baseUrl}/users/login`, formValue);
   }

@@ -1,52 +1,35 @@
-#login-form-container{
-    background-color: rgba(255, 166, 0, 0.151);
-    width: 30%;
-    border: 2px solid rgb(255, 136, 0);
-    border-radius: 12px;
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 35%;
+  padding: 10px;
+  border: 1px solid black;
+
+  button:last-child {
+    margin-top: 0;
+  }
 }
-#login-form-container input{
+
+input {
+
+  width: 100%;
+  border: 1px solid black;
+  margin-top: 20px;
+
+  &:focus {
     outline: none;
-    border: 2px solid rgb(192, 192, 192);
-    margin-top: 20px;
-    padding: 10px 0 10px 8px;    
-    border-radius: 12px;
-}
-#login-form-container input:focus{
-    border: 2px solid rgb(255, 136, 0);    
-}
-#login-button{
-    background-color: rgba(255, 136, 0, 0.650);    
-    margin-top: 20px;
-    padding: 11px 0 11px 9px;
-    border: none;
-    border-radius: 12px;
-    transition: background-color 0.2s ease;
+    border-color: green;
+  }
+
 }
 
-#login-button:hover{
-    background-color: rgba(255, 136, 0, 0.450);    
+button {
+  width: 70%;
+  margin: 25px 0 10px 0;
 }
 
-#login-form-container hr{
-    z-index: 5;
-    border: 1px solid rgb(255, 166, 0);
-    margin-top: 15px;
-}
-
-#login-form-container a{
-    margin-top: 10px;
-}
-
-#sign-up-button{
-    background-color: rgba(0, 38, 255, 0.700);
-    color: white;
-    margin: 5px 0 20px 0;     
-    padding: 15px 0 15px 9px;
-    border: none;
-    border-radius: 12px;
-    transition: background-color 0.2s ease;
-}
-
-#sign-up-button:hover{
-    background-color: rgba(0, 38, 255, 0.840);  
+hr {
+  width: 100%;
+  margin: 20px 0;
 }

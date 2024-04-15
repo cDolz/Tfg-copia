@@ -1,8 +1,8 @@
-import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Subject, takeUntil } from 'rxjs';
+import { Component, OnDestroy } from '@angular/core';
+import { AbstractControl, AsyncValidatorFn, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { Observable, Subject, debounceTime, map, of, switchMap, takeUntil, timer } from 'rxjs';
 import { AuthService } from '../../../services/auth.service';
-import { UserData } from '../../../models/user.model';
+import { UserRegisterData } from '../../../models/user.model';
 import { Router } from '@angular/router';
 
 @Component({
@@ -35,10 +35,12 @@ export class SignUpFormComponent implements OnDestroy {
 
   // Creo y enlazo el reactive form en el constructor, utilizo mi model
   form!: FormGroup;
-  register!: UserData;  
+  register!: UserRegisterData;
 
   // instancio mi observable para gestionar la desuscripción
   private unsubscribe$ = new Subject<void>();
+
+  errorMessage!: string;
 
   // inyecciones en el constructor
   constructor(private formBuilder: FormBuilder, private authService: AuthService, private router: Router) {
@@ -63,7 +65,10 @@ export class SignUpFormComponent implements OnDestroy {
   // inicio mi formulario con formBuilder, añado validaciones
   private initForm() {
     this.form = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
+      email: ['', {
+        validators: [Validators.required, Validators.email],
+        asyncValidators: [this.emailExists()] // añado validación asincrona, se activa onChange por defecto
+      }],
       password: ['', [
         Validators.required,
         Validators.minLength(8),
@@ -71,19 +76,31 @@ export class SignUpFormComponent implements OnDestroy {
         Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&\\.#_-])[A-Za-z\\d$@$!%*?&\\.#_-]{8,}$')
       ]],
       repeatPassword: ['', [Validators.required]],
-      name: ['', [Validators.required]],
-      surname: ['', [Validators.required]],
+      name: ['', [Validators.required, Validators.pattern(/^\S+(\s?\S+)*$/)]],
+      surname: ['', [Validators.required, Validators.pattern(/^\S+(\s?\S+)*$/)]],
       day: ['01'],
       month: ['01'],
       year: ['2024']
-    // }, {
-    //   // añado validación personalizada como segundo parámetro
-    //   validators: [
-    //     this.MustMatch('password', 'repeatPassword'),
-    //     this.isAdult('day', 'month', 'year')
-    //   ]    
+    }, {
+      // añado validación personalizada como segundo parámetro
+      validators: [
+        this.MustMatch('password', 'repeatPassword'),
+        this.isAdult('day', 'month', 'year'),
+      ],      
     });
-    this.form.setValidators(this.mustMatch('password', 'repeatPassword'));
+  }
+
+  // función asincrona para validar el email antes de enviarlo
+  private emailExists(): AsyncValidatorFn {
+    // funcion que retorna un observable
+    return (control: AbstractControl): Observable<ValidationErrors | null> => {
+      // llamo a mi servicio para comprobar si el email existe
+      return this.authService.checkDuplicateEmail({ email: control.value }).pipe(
+        // transformo la respuesta en un objeto que retorna true si el email existe, o null si no existe
+        // controlo la cantidad de peticiones añadiendo un debounceTime
+        debounceTime(300), map(response => response.error? { 'emailExists': true } : null)
+      );
+    };
   }
 
   // facilito el acceso a mis controles del formulario
@@ -159,10 +176,10 @@ export class SignUpFormComponent implements OnDestroy {
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: () => {
-          this.router.navigate(['/login']);
+          this.router.navigate(['/home']);
         },
         error: (error) => {
-          console.error(error);
+          this.errorMessage = error.error.message;
         }
       });
   }
