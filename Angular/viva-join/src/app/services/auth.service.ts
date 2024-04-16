@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { catchError, Observable, throwError } from 'rxjs';
 import { environment } from '../../environments/environments';
 
 @Injectable({
@@ -20,11 +20,11 @@ export class AuthService {
   }
 
   register(formValue: any): Observable<any> {
-    return this.httpClient.post<any>(`${this.baseUrl}/users/sign-up`, formValue);    
+    return this.httpClient.post<any>(`${this.baseUrl}/users/sign-up`, formValue);
   }
 
-  checkDuplicateEmail(data: { email: string }): Observable<any> {
-    return this.httpClient.post<any>(`${this.baseUrl}/users/check-email`, data);
+  checkDuplicatedEmail(data: { email: string }): Observable<any> {    
+    return this.httpClient.post<any>(`${this.baseUrl}/users/check-email`, data);      
   }
 
   login(formValue: any): Observable<any> {

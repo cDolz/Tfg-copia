@@ -4,6 +4,7 @@ import { Observable, Subject, debounceTime, map, of, switchMap, takeUntil, timer
 import { AuthService } from '../../../services/auth.service';
 import { UserRegisterData } from '../../../models/user.model';
 import { Router } from '@angular/router';
+import { MyValidators } from '../../../utils/validators/validators';
 
 @Component({
   selector: 'app-shared-sign-up-form',
@@ -65,14 +66,14 @@ export class SignUpFormComponent implements OnDestroy {
   // inicio mi formulario con formBuilder, añado validaciones
   private initForm() {
     this.form = this.formBuilder.group({
-      email: ['', {
-        validators: [Validators.required, Validators.email],
-        asyncValidators: [this.emailExists()] // añado validación asincrona, se activa onChange por defecto
-      }],
+      email: ['',
+        [Validators.required, Validators.email],
+        [MyValidators.emailExists(this.authService)]
+      ],
       password: ['', [
         Validators.required,
         Validators.minLength(8),
-        Validators.maxLength(30),
+        Validators.maxLength(20),
         Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&\\.#_-])[A-Za-z\\d$@$!%*?&\\.#_-]{8,}$')
       ]],
       repeatPassword: ['', [Validators.required]],
@@ -84,50 +85,15 @@ export class SignUpFormComponent implements OnDestroy {
     }, {
       // añado validación personalizada como segundo parámetro
       validators: [
-        this.MustMatch('password', 'repeatPassword'),
-        this.isAdult('day', 'month', 'year'),
-      ],      
+        MyValidators.matchPasswords,
+        this.isAdult('day', 'month', 'year')
+      ],
     });
-  }
-
-  // función asincrona para validar el email antes de enviarlo
-  private emailExists(): AsyncValidatorFn {
-    // funcion que retorna un observable
-    return (control: AbstractControl): Observable<ValidationErrors | null> => {
-      // llamo a mi servicio para comprobar si el email existe
-      return this.authService.checkDuplicateEmail({ email: control.value }).pipe(
-        // transformo la respuesta en un objeto que retorna true si el email existe, o null si no existe
-        // controlo la cantidad de peticiones añadiendo un debounceTime
-        debounceTime(300), map(response => response.error? { 'emailExists': true } : null)
-      );
-    };
   }
 
   // facilito el acceso a mis controles del formulario
   get f() {
     return this.form.controls;
-  }
-
-  // valido si mi contraseña repetida es igual que la original
-  private MustMatch(controlName: string, matchingControlName: string) {
-    // retorno la función que llamaré desde el FormBuilder
-    return (formGroup: FormGroup) => {
-      // obtengo los controles
-      const control = formGroup.controls[controlName];
-      const matchingControl = formGroup.controls[matchingControlName];
-
-      // Compruebo si hay otros errores para no sobreescribirlos
-      if (matchingControl.errors && !matchingControl.errors['mustMatch']) {
-        return;
-      }
-
-      // compruebo si los valores son iguales
-      if (control.value !== matchingControl.value) {
-        matchingControl.setErrors({ 'mustMatch': true }); // si no lo son seteo el error
-      } else {
-        matchingControl.setErrors(null); // si son iguales los elimino
-      }
-    }
   }
 
   // valido si el usuario es mayor de edad

@@ -22,22 +22,14 @@ router.post('/sign-up', async (req, res) => {
 });
 
 router.post('/check-email', async (req, res) => {
-    const { email } = req.body;
-  
+    const { email } = req.body;    
     try {
-      const user = await User.findOne({ email });
-  
+      const user = await User.findOne({ email });      
       if (user) {
-        // If a user with the email exists, return an error
-        res.json({ error: 'Email is already in use' });
-      } else {
-        // If no user with the email exists, return success
-        res.json({ success: true });
+        res.status.json({ error: 'Email is already in use' });
       }
-    } catch (err) {
-      // Handle any errors that occur
-      console.error(err);
-      res.status(500).json({ error: 'An error occurred while checking the email' });
+    } catch (error) {            
+      res.status.json({ error: 'Email is already in use' });
     }
   });
 
