@@ -74,7 +74,7 @@ export class SignUpFormComponent implements OnDestroy {
         Validators.required,
         Validators.minLength(8),
         Validators.maxLength(20),
-        Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&\\.#_-])[A-Za-z\\d$@$!%*?&\\.#_-]{8,}$')
+        Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&\\.#_-])[A-Za-z\\d$@$!%*?&\\.#_-]*$')
       ]],
       repeatPassword: ['', [Validators.required]],
       name: ['', [Validators.required, Validators.pattern(/^\S+(\s?\S+)*$/)]],
@@ -86,7 +86,7 @@ export class SignUpFormComponent implements OnDestroy {
       // añado validación personalizada como segundo parámetro
       validators: [
         MyValidators.matchPasswords,
-        this.isAdult('day', 'month', 'year')
+        MyValidators.isAdult
       ],
     });
   }
@@ -95,35 +95,7 @@ export class SignUpFormComponent implements OnDestroy {
   get f() {
     return this.form.controls;
   }
-
-  // valido si el usuario es mayor de edad
-  private isAdult(day: string, month: string, year: string) {
-    // retorno la función que llamaré desde el FormBuilder
-    return (formGroup: FormGroup) => {
-      // obtengo los controles
-      const dayControl = formGroup.controls[day];
-      const monthControl = formGroup.controls[month];
-      const yearControl = formGroup.controls[year];
-
-      // creo la fecha de cumpleaños y la actual -18 años atrás para comparar
-      if (dayControl && monthControl && yearControl && dayControl.value && monthControl.value && yearControl.value) {
-        const birthdate = new Date(yearControl.value, monthControl.value - 1, dayControl.value);
-        const currentDate = new Date();
-        const adultDate = new Date(currentDate.getFullYear() - 18, currentDate.getMonth(), currentDate.getDate());
-
-        if (birthdate > adultDate) {
-          dayControl.setErrors({ notAdult: true });
-          monthControl.setErrors({ notAdult: true });
-          yearControl.setErrors({ notAdult: true });
-        } else {
-          dayControl.setErrors(null);
-          monthControl.setErrors(null);
-          yearControl.setErrors(null);
-        }
-      }
-    }
-  }
-
+  
   // envío datos cuando se pulse el boton de registro
   onSubmit() {
 

@@ -71,7 +71,7 @@
       <span *ngIf="f['email']?.errors?.['email']"
         >*Formato de email incorrecto</span
       >
-      <span *ngIf="f['email']?.hasError('unauthorized')"
+      <span *ngIf="f['email']?.hasError('emailExists')"
         >*Este correo ya está en uso</span
       >
     </div>
@@ -107,9 +107,9 @@
       <span class="error-span" *ngIf="f['password']?.errors?.['maxlength']"
         >*Máximo 20 caracteres</span
       >
-      <span class="error-span" *ngIf="f['password']?.errors?.['pattern']"
-        >*Debe contener de mayúscula, minúscula, número y carácter especial</span
-      >
+      <span class="error-span" *ngIf="f['password']?.errors?.['pattern'] && !f['password']?.errors?.['minlength']">
+        *Debe contener de mayúscula, minúscula, número y carácter especial
+      </span>
     </div>
   </div>
   <div class="input-div">

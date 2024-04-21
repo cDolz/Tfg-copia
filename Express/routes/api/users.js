@@ -22,20 +22,21 @@ router.post('/sign-up', async (req, res) => {
 });
 
 router.post('/check-email', async (req, res) => {
-    const { email } = req.body;    
     try {
-      const user = await User.findOne({ email });      
-      if (user) {
-        res.status.json({ error: 'Email is already in use' });
-      }
-    } catch (error) {            
-      res.status.json({ error: 'Email is already in use' });
+        const { email } = req.body;
+        const user = await User.findOne({ email });
+        if (user) {
+            console.log('Email is already in use');
+            res.json({ emailExists: 'Email is already in use' });
+        }
+    } catch (error) {
+        console.log('Internal error');
+        res.status(500).json({ error: 'Internal error' });
     }
-  });
+});
 
 
 router.post('/login', async (req, res) => {
-
     try {
         // Compruebo email
         const user = await User.findOne({ email: req.body.email });
