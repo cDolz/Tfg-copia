@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
 import { UserLoginData } from '../../../models/user.model';
 import { Subject, takeUntil } from 'rxjs';
+import { response } from 'express';
 
 @Component({
   selector: 'app-shared-login-form',
@@ -48,11 +49,13 @@ export class LoginFormComponent {
     this.authService.login(this.login)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
-        next: () => {
+        next: (response) => {
+          console.log(response);
           this.router.navigate(['/home']);
         },
         error: (error) => {
-          this.errorMessage = error.error.error;
+          console.log(error);
+          this.errorMessage = error.error.message;
         }
       });
   }

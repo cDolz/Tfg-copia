@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 const User = require('../../models/user.model');
 
 // Apunta a la ruta de registro
-router.post('/sign-up', async (req, res) => {
+router.post('/sign-up', async (req, res, next) => {
     try {
         // Encriptamos la contraseña
         req.body.password = bcrypt.hashSync(req.body.password, 12);
@@ -17,11 +17,11 @@ router.post('/sign-up', async (req, res) => {
         res.json({ message: 'Registro exitoso' });
 
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        next(error);
     }
 });
 
-router.post('/check-email', async (req, res) => {
+router.post('/check-email', async (req, res, next) => {
     try {
         // Compruebo si el email ya existe en la BBDD
         const { email } = req.body;
@@ -39,25 +39,23 @@ router.post('/check-email', async (req, res) => {
 });
 
 
-router.post('/login', async (req, res, next) => {
+router.post('/login', async (req, res, next) => {    
     try {
         // Compruebo email
         const user = await User.findOne({ email: req.body.email });
-
-        if (!user) {
+        if (!user) {            
             return res.json({ userExists: false });
         }
 
         // compruebo contraseña
         const passwordEquals = bcrypt.compareSync(req.body.password, user.password);
-
-        if (!passwordEquals) {
+        if (!passwordEquals) {            
             return res.json({ userExists: false });
         }
 
-        return res.json({ userExists: true, token: createToken(user)});
         // devuelvo token en caso de login correcto        
-
+        res.json({ token : createToken(user) });
+              
     } catch (error) {
         next(error);
     }
@@ -67,7 +65,7 @@ router.post('/login', async (req, res, next) => {
 // creo el token
 function createToken(user) {
     const payload = { userId: user._id };
-    return jwt.sign(payload, 'token');
+    return jwt.sign(payload, 'dolz-secret-key');
 }
 
 module.exports = router;

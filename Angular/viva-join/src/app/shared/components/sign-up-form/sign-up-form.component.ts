@@ -115,7 +115,7 @@ export class SignUpFormComponent implements OnDestroy {
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: () => {
-          this.router.navigate(['/home']);
+          this.router.navigate(['/login']);
         },
         error: (error) => {
           this.errorMessage = error.error.message;
