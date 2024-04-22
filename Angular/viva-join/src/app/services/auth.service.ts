@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { catchError, Observable, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, of, tap } from 'rxjs';
 import { environment } from '../../environments/environments';
 
 @Injectable({
@@ -15,6 +15,8 @@ export class AuthService {
   // declaro e inicializo en el constructor la url de las peticiones en el back
   private baseUrl: string;
 
+  user$ = new BehaviorSubject<any>(null);
+
   constructor() {
     this.baseUrl = environment.baseUrl;
   }
@@ -28,7 +30,9 @@ export class AuthService {
   }
 
   login(formValue: any): Observable<any> {
-    return this.httpClient.post<any>(`${this.baseUrl}/users/login`, formValue);
+    return this.httpClient.post<any>(`${this.baseUrl}/users/login`, formValue).pipe(
+      tap(user => this.user$.next(user))
+    );
   }
 
 }
