@@ -5,6 +5,7 @@ import { AuthService } from '../../../services/auth.service';
 import { UserRegisterData } from '../../../models/user.model';
 import { Router } from '@angular/router';
 import { MyValidators } from '../../../utils/validators/validators';
+import { log } from 'node:console';
 
 @Component({
   selector: 'app-shared-sign-up-form',
@@ -127,4 +128,6 @@ export class SignUpFormComponent implements OnDestroy {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
   }
+
 }
+

@@ -23,40 +23,43 @@ router.post('/sign-up', async (req, res) => {
 
 router.post('/check-email', async (req, res) => {
     try {
+        // Compruebo si el email ya existe en la BBDD
         const { email } = req.body;
         const user = await User.findOne({ email });
+        // Si existe devuelvo true, si no false
         if (user) {
-            console.log('Email is already in use');
-            res.json({ emailExists: 'Email is already in use' });
+            return res.json({ emailExists: true });
         }
+        res.json({ emailExists: false });
+
     } catch (error) {
-        console.log('Internal error');
-        res.status(500).json({ error: 'Internal error' });
+        // Si hay un error devuelvo un error 500   
+        next(error);
     }
 });
 
 
-router.post('/login', async (req, res) => {
+router.post('/login', async (req, res, next) => {
     try {
         // Compruebo email
         const user = await User.findOne({ email: req.body.email });
 
         if (!user) {
-            return res.status(401).json({ error: 'El email o la contraseña no son correctos' });
+            return res.json({ userExists: false });
         }
 
         // compruebo contraseña
         const passwordEquals = bcrypt.compareSync(req.body.password, user.password);
 
         if (!passwordEquals) {
-            return res.status(401).json({ error: 'El email o la contraseña no son correctos' });
+            return res.json({ userExists: false });
         }
 
-        // devuelvo token en caso de login correcto
-        res.json({ token: createToken(user) });
+        return res.json({ userExists: true, token: createToken(user)});
+        // devuelvo token en caso de login correcto        
 
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        next(error);
     }
 
 });
