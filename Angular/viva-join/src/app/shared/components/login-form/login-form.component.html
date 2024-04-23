@@ -5,9 +5,11 @@
     formControlName="email"
   />
   <input type="password" placeholder="Contraseña" formControlName="password" />
-  <button type="submit">Iniciar sesión</button>
+  <div class="button-span">
+    <button type="submit">Iniciar sesión</button>
+    <span *ngIf="errorMessage"> {{errorMessage}} </span>
+  </div>  
   <a href="" class="text-center">¿Has olvidado la contraseña?</a>
   <hr />
   <button (click)="redirectToSignUp()">Crear nueva cuenta</button>
-  <span *ngIf="errorMessage"> {{errorMessage}} </span>
 </form>

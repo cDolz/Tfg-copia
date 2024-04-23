@@ -1,11 +1,10 @@
 import { Component, OnDestroy } from '@angular/core';
-import { AbstractControl, AsyncValidatorFn, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
-import { Observable, Subject, debounceTime, map, of, switchMap, takeUntil, timer } from 'rxjs';
-import { AuthService } from '../../../services/auth.service';
-import { UserRegisterData } from '../../../models/user.model';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Subject, takeUntil } from 'rxjs';
+import { UserRegisterData } from '../../../models/user.model';
+import { AuthService } from '../../../services/auth.service';
 import { MyValidators } from '../../../utils/validators/validators';
-import { log } from 'node:console';
 
 @Component({
   selector: 'app-shared-sign-up-form',

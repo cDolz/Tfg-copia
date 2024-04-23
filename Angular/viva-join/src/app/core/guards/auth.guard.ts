@@ -1,26 +1,24 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { map, Observable } from 'rxjs';
-import { AuthService } from '../../services/auth.service';
+import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
+import Cookies from 'js-cookie';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuard implements CanActivate{
+export class AuthGuard implements CanActivate {
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private router: Router) { }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    return this.authService.token$.pipe(
-      map((token) => {
-        if (!token) {
-          this.router.navigate(['/login']);
-          return false;
-        }
-        return true;
-      })    
-    );
-      
+
+    const token = Cookies.get('token');
+
+    if (!token) {
+      this.router.navigate(['/login']);
+      return false;
+    }
+    return true;
+
   }
 
 }

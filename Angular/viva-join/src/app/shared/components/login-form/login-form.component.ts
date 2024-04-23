@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from '../../../services/auth.service';
-import { UserLoginData } from '../../../models/user.model';
 import { Subject, takeUntil } from 'rxjs';
-import { response } from 'express';
+import { UserLoginData } from '../../../models/user.model';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-shared-login-form',
@@ -50,11 +49,12 @@ export class LoginFormComponent {
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: (response) => {
-          console.log(response);
+          if (!response.userExists) {
+            this.errorMessage = '* Usuario o contraseña incorrectos';
+          }          
           this.router.navigate(['/home']);
         },
         error: (error) => {
-          console.log(error);
           this.errorMessage = error.error.message;
         }
       });
