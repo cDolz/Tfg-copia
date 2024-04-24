@@ -7,10 +7,11 @@ import { SwiperModule } from 'swiper/angular';
 import { EventInfoComponent } from './components/event-info/event-info.component';
 import { EventImgCarouselComponent } from './components/event-img-carousel/event-img-carousel.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { EventRegisterFormComponent } from './components/event-register-form/event-register-form.component';
 
 @NgModule({
-    declarations: [LoginFormComponent, SignUpFormComponent, EventScrollComponent, EventInfoComponent, EventImgCarouselComponent],
-    exports: [LoginFormComponent, SignUpFormComponent, EventScrollComponent, EventInfoComponent, EventImgCarouselComponent, SwiperModule],
+    declarations: [LoginFormComponent, SignUpFormComponent, EventScrollComponent, EventInfoComponent, EventImgCarouselComponent, EventRegisterFormComponent],
+    exports: [LoginFormComponent, SignUpFormComponent, EventScrollComponent, EventInfoComponent, EventImgCarouselComponent, SwiperModule, EventRegisterFormComponent],
     imports: [CommonModule, SwiperModule, ReactiveFormsModule]
 })
 export class SharedModule { }

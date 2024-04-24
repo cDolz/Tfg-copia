@@ -18,3 +18,15 @@ Content-Type: application/json
     "email": "carlosdolzm@gmail.com",
     "password": "123456"
 }
+
+###
+
+POST http://localhost:3000/api/events/upload
+Content-Type: multipart/form-data; boundary=boundary
+
+--boundary
+Content-Disposition: form-data; name="file"; filename="imagenPrueba.jpeg"
+Content-Type: image/jpeg
+
+< C:\Users\carlos.dolz\Desktop\imagenPrueba.jpeg
+--boundary--
