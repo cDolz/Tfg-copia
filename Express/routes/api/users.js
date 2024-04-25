@@ -65,7 +65,7 @@ router.post('/login', async (req, res, next) => {
 // creo el token
 function createToken(user) {
     const payload = { userId: user._id };
-    return jwt.sign(payload, 'dolz-secret-key');
+    return jwt.sign(payload, process.env.SECRET_KEY);
 }
 
 module.exports = router;

@@ -1,1 +1,4 @@
-<p>event-register-form works!</p>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <input type="file" formControlName="image">
+    <button type="submit">Registrar</button>
+</form>
