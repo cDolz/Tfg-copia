@@ -14,8 +14,8 @@ export class EventsService {
     this.baseUrl = environment.baseUrl;
   }
 
-  register(formValue: any): Observable<any> {
-    return this.httpClient.post<any>(`${this.baseUrl}/events/upload`, formValue);
+  register(formData: FormData): Observable<any> {
+    return this.httpClient.post<any>(`${this.baseUrl}/events/upload`, formData);
   }
 
 }
