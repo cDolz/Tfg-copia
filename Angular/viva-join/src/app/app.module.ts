@@ -7,6 +7,7 @@ import { SharedModule } from './shared/shared.module';
 import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 
 import { PagesModule } from './pages/pages.module';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { PagesModule } from './pages/pages.module';
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
       multi: true
-    }] 
+    }],
+    provideAnimationsAsync()
   ],
   bootstrap: [AppComponent]
 })

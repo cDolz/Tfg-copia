@@ -5,6 +5,7 @@ import { Subject, takeUntil } from 'rxjs';
 import { UserRegisterData } from '../../../models/user.model';
 import { AuthService } from '../../../services/auth.service';
 import { MyValidators } from '../../../utils/validators/validators';
+import { CommonService } from '../../../services/common.service';
 
 @Component({
   selector: 'app-shared-sign-up-form',
@@ -21,7 +22,7 @@ export class SignUpFormComponent implements OnDestroy {
   days: number[] = Array.from({ length: 31 }, (_, i) => i + 1);
 
   // array para el select de los meses
-  months: { name: string, number: string }[] = this.generateMonths();
+  months: { name: string, number: string }[] = this.commonService.generateMonths();
 
   // array del año actual -120 años para el select
   years: number[] = Array.from({ length: 120 }, (_, i) => this.currentYear - i);
@@ -44,17 +45,16 @@ export class SignUpFormComponent implements OnDestroy {
   errorMessage!: string;
 
   // inyecciones en el constructor
-  constructor(private formBuilder: FormBuilder, private authService: AuthService, private router: Router) {
+  constructor(private formBuilder: FormBuilder,
+    private authService: AuthService,
+    private router: Router,
+    private commonService : CommonService
+  ) {
     this.initForm();
   }
 
   // genero los meses para el select
-  generateMonths() {
-    const monthNames = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
-    return monthNames.map((month, index) => {
-      return { name: month, number: (index + 1).toString().padStart(2, '0') };
-    });
-  }
+
 
   // marco los select como touched cuando haga focus en uno de ellos
   markSelectAsTouched() {
@@ -95,7 +95,7 @@ export class SignUpFormComponent implements OnDestroy {
   get f() {
     return this.form.controls;
   }
-  
+
   // envío datos cuando se pulse el boton de registro
   onSubmit() {
 

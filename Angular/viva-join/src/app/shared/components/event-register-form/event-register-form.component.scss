@@ -1,0 +1,103 @@
+form {
+    display: flex;
+    flex-direction: column;    
+    width: 70%;
+    padding: 10px;
+    border: 1px solid black;
+}
+
+// .input-div,
+// .name-surname,
+// .date-div,
+// .date-select {
+//     display: flex;
+//     flex-direction: column;
+//     width: 100%;
+// }
+
+#durationTime, #div-periodicity {
+    display: flex;
+    flex-direction: row;
+}
+
+textarea {
+    resize: none;
+}
+
+// .name-surname,
+// .date-select {
+//     flex-direction: row;
+//     justify-content: space-between;
+// }
+
+// .name-surname,
+// .input-div,
+// .date-div {
+//     margin-top: 20px;
+// }
+
+// .name-surname>.input-div {
+//     margin-top: 0;
+//     width: 49%;
+// }
+
+// .input-icon {
+//     display: flex;
+//     align-items: center;
+//     justify-content: end;
+// }
+
+// input {
+//     width: 100%;
+//     border: 1px solid black;
+
+//     &:focus,
+//     &.ng-valid {
+//         outline: none;
+//         border-color: green;
+//     }
+
+//     &.ng-touched.ng-invalid {
+//         border: 1px solid red;
+//     }
+// }
+
+// i,
+// span {
+//     position: absolute;
+// }
+
+// span {
+//     font-size: 12px;
+//     background-color: grey;
+// }
+
+// .date-div {
+//     align-items: end;
+// }
+
+// select {
+//     width: 31%;
+//     border: 1px solid black;
+
+//     &:focus,
+//     &.ng-valid {
+//         border-color: green;
+//         outline: none;
+//     }
+
+//     &.ng-touched.ng-invalid {
+//         border: 1px solid red;
+//     }
+// }
+
+// .date-errors {
+//     display: flex;
+//     width: 100%;
+//     justify-content: end;
+// }
+
+// button {
+//     width: 70%;
+//     margin: 25px 0 10px 0;
+// }
