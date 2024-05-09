@@ -30,7 +30,7 @@ export class AuthService {
   login(formValue: any): Observable<any> {
     return this.httpClient.post<any>(`${this.baseUrl}/users/login`, formValue).pipe(
       tap(response => {
-        if (response && response.token) {
+        if (response.token) {
           Cookies.set('token', response.token, { secure: true, sameSite: 'Strict' });
         }
         return response;

@@ -36,13 +36,15 @@ export class EventsService {
     this.baseUrl = environment.baseUrl;
   }
 
-  getCategories(): string[] { return this.categories; }
+  getCategories(): string[] { return this.categories.sort(); }
 
-  register(formData: FormData): Observable<any> {
-    formData.forEach((value, key) => {
-      console.log(key, value);
-    });
-    return this.httpClient.post<any>(`${this.baseUrl}/events/upload`, formData);
+  register(formData: FormData): Observable<any> {    
+    return this.httpClient.post<any>(`${this.baseUrl}/events/register-event`, formData);
+  }
+
+  getEventsByCategory(category: string): Observable<any> {
+    const encodedCategory = encodeURIComponent(category);
+    return this.httpClient.get<any>(`${this.baseUrl}/events/get-events/${encodedCategory}`);
   }
 
 }

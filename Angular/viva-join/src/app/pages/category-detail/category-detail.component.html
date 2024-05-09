@@ -1,0 +1,2 @@
+<h1> {{ category }} </h1>
+<app-shared-event-miniature *ngFor="let event of events" [title]="event.title" [file]="event.file" [route]="'/home/event/' + event.title"></app-shared-event-miniature>

@@ -1,14 +1,13 @@
 const jwt = require('jsonwebtoken');
 
-const checkToken = (req, res, next) => {
-    console.log('req.headers', req.headers);
+const checkToken = (req, res, next) => {    
     if (!req.headers['authorization']) {
         console.log('Not Authorized');
         return res.json({ error: 'Not Authorized' });
     }
     try {
-        jwt.verify(req.headers['authorization'].split(' ')[1],
-         process.env.SECRET_KEY);
+        let token = req.headers['authorization'].split(' ')[1];        
+        jwt.verify(token, process.env.SECRET_KEY);
     } catch (error) {
         console.log('Not Authorized catch');
         return res.json({ error: 'Not Authorized' });

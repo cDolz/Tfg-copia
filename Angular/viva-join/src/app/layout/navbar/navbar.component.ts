@@ -6,5 +6,11 @@ import { Component } from '@angular/core';
   styleUrl: './navbar.component.scss'
 })
 export class NavbarComponent {
-  public navBarContent: string[] = ['Inicio', 'Buscar', 'Mis eventos', 'Crear Evento', 'Perfil'];
+  
+  routes = [
+    { path: 'home-page', label: 'Inicio' },
+    { path: 'categories', label: 'Categorías' },
+    { path: 'event-register', label: 'Crear Evento' }    
+  ];
+
 }

@@ -1,15 +1,15 @@
 export interface EventRegisterData {
-    name: string,
+    title: string,
     description: string,
     duration: string,
     location: string,
     categorization: string,
     organizer: string,
-    maxParticipants: number
+    maxParticipants: number,
+    dates: EventRegisterDateData[]
 }
 
 export interface EventRegisterDateData {
     date: string,
-    hour: string,
-    currentParticipants: number
+    hour: string
 }

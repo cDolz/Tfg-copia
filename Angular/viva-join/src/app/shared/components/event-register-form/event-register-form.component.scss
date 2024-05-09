@@ -6,71 +6,73 @@ form {
     border: 1px solid black;
 }
 
-// .input-div,
-// .name-surname,
-// .date-div,
-// .date-select {
-//     display: flex;
-//     flex-direction: column;
-//     width: 100%;
-// }
+ .input-div, .textarea-div {
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+}
 
-#durationTime, #div-periodicity {
+.textarea-div {
+    width: 100%;    
+}
+
+.duration-div {
     display: flex;
     flex-direction: row;
+    width: 50%;    
+    select {
+        width: 30%;
+    }
+
+    p {
+        margin: 0 10px;
+    }
 }
 
 textarea {
-    resize: none;
+    resize: none;    
+    height: 280px;
 }
 
-// .name-surname,
-// .date-select {
-//     flex-direction: row;
-//     justify-content: space-between;
-// }
+.event-dates-div {
+    display: flex;
+    flex-direction: row;    
+}
 
-// .name-surname,
-// .input-div,
-// .date-div {
-//     margin-top: 20px;
-// }
+.input-icon, .textarea-icon {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
 
-// .name-surname>.input-div {
-//     margin-top: 0;
-//     width: 49%;
-// }
+.textarea-icon {
+    align-items: start;
+}
 
-// .input-icon {
-//     display: flex;
-//     align-items: center;
-//     justify-content: end;
-// }
+input, textarea {
+    width: 100%;
+    border: 1px solid black;
 
-// input {
-//     width: 100%;
-//     border: 1px solid black;
+    &:focus,
+    &.ng-valid {
+        outline: none;
+        border-color: green;
+    }
 
-//     &:focus,
-//     &.ng-valid {
-//         outline: none;
-//         border-color: green;
-//     }
+    &.ng-touched.ng-invalid {
+        border: 1px solid red;
+    }
+}
 
-//     &.ng-touched.ng-invalid {
-//         border: 1px solid red;
-//     }
-// }
+i,
+span {
+    position: absolute;
+}
 
-// i,
-// span {
-//     position: absolute;
-// }
-
-// span {
-//     font-size: 12px;
-//     background-color: grey;
-// }
+span {
+    font-size: 12px;
+    background-color: grey;
+}
 
 // .date-div {
 //     align-items: end;
@@ -89,12 +91,6 @@ textarea {
 //     &.ng-touched.ng-invalid {
 //         border: 1px solid red;
 //     }
-// }
-
-// .date-errors {
-//     display: flex;
-//     width: 100%;
-//     justify-content: end;
 // }
 
 // button {
