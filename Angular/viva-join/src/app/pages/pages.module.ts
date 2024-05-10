@@ -8,15 +8,18 @@ import { CommonModule } from '@angular/common';
 import { CategoriesComponent } from './categories/categories.component';
 import { CategoryDetailComponent } from './category-detail/category-detail.component';
 import { EventDetailComponent } from './event-detail/event-detail.component';
+import { ProfileComponent } from './profile/profile.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
 @NgModule({
-  declarations: [ LoginComponent, SignUpComponent, EventRegisterComponent, HomePageComponent, CategoriesComponent, CategoryDetailComponent, EventDetailComponent],
+  declarations: [ LoginComponent, SignUpComponent, EventRegisterComponent, HomePageComponent, CategoriesComponent, CategoryDetailComponent, EventDetailComponent, ProfileComponent],
   imports: [
     CommonModule,
-    SharedModule
+    SharedModule,
+    ReactiveFormsModule
   ],
-  exports: [LoginComponent, SignUpComponent, EventRegisterComponent, HomePageComponent, CategoriesComponent, CategoryDetailComponent, EventDetailComponent]
+  exports: [LoginComponent, SignUpComponent, EventRegisterComponent, HomePageComponent, CategoriesComponent, CategoryDetailComponent, EventDetailComponent, ProfileComponent]
 })
 export class PagesModule { }

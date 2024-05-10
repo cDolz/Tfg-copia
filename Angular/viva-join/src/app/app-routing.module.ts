@@ -10,6 +10,7 @@ import { EventRegisterComponent } from './pages/event-register/event-register.co
 import { CategoriesComponent } from './pages/categories/categories.component';
 import { CategoryDetailComponent } from './pages/category-detail/category-detail.component';
 import { EventDetailComponent } from './pages/event-detail/event-detail.component';
+import { ProfileComponent } from './pages/profile/profile.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -22,6 +23,7 @@ const routes: Routes = [
     {path: 'categories', component: CategoriesComponent},
     {path: 'category/:category', component: CategoryDetailComponent},
     {path: 'event/:event', component: EventDetailComponent},
+    {path: 'profile', component: ProfileComponent},
   ]},
 ];
 

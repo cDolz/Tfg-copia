@@ -3,5 +3,8 @@
         <li *ngFor="let route of routes">
             <a [routerLink]="route.path">{{ route.label }}</a>
         </li>
+        <li>
+            <button (click)="logout()" >Cerrar Sesión</button>
+        </li>
     </ul>
 </nav>

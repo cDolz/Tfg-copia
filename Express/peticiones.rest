@@ -73,3 +73,8 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjE1M
 
 GET http://localhost:3000/api/events/get-event/prueba%201
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjE1MDZlMzQyMTYwMTk2M2ZiNTI2YzUiLCJpYXQiOjE3MTUwNzgyNDN9.0Uc-NKpsD9pP8Xx4dyfoDSCScmzz7sXLqbtErkTyRng
+
+###
+
+GET http://localhost:3000/api/users/user/carlosdolzm%40gmail.com
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjE1MDZlMzQyMTYwMTk2M2ZiNTI2YzUiLCJpYXQiOjE3MTUwNzgyNDN9.0Uc-NKpsD9pP8Xx4dyfoDSCScmzz7sXLqbtErkTyRng

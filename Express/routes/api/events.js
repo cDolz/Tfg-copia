@@ -42,12 +42,9 @@ router.get('/get-events/:category', async (req, res, next) => {
     }
 });
 
-const mongoose = require('mongoose');
-
 router.get('/get-event/:title', async (req, res, next) => {
     try {
-        const title = decodeURIComponent(req.params.title);
-        console.log(title);
+        const title = decodeURIComponent(req.params.title);        
         const event = await Event.findOne({ title: title });
 
         if (!event) {

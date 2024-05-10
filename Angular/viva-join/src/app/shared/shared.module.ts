@@ -13,10 +13,11 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { CategoryMiniatureComponent } from './components/category-miniature/category-miniature.component';
 import { RouterModule } from '@angular/router';
 import { EventMiniatureComponent } from './components/event-miniature/event-miniature.component';
+import { EventDateSelectionComponent } from './components/event-date-selection/event-date-selection.component';
 
 @NgModule({
-    declarations: [LoginFormComponent, SignUpFormComponent, EventScrollComponent, EventInfoComponent, EventImgCarouselComponent, EventRegisterFormComponent, CategoryMiniatureComponent, EventMiniatureComponent],
-    exports: [LoginFormComponent, SignUpFormComponent, EventScrollComponent, EventInfoComponent, EventImgCarouselComponent, SwiperModule, EventRegisterFormComponent, CategoryMiniatureComponent, EventMiniatureComponent],
+    declarations: [LoginFormComponent, SignUpFormComponent, EventScrollComponent, EventInfoComponent, EventImgCarouselComponent, EventRegisterFormComponent, CategoryMiniatureComponent, EventMiniatureComponent, EventDateSelectionComponent],
+    exports: [LoginFormComponent, SignUpFormComponent, EventScrollComponent, EventInfoComponent, EventImgCarouselComponent, SwiperModule, EventRegisterFormComponent, CategoryMiniatureComponent, EventMiniatureComponent, EventDateSelectionComponent],
     imports: [CommonModule, SwiperModule, ReactiveFormsModule, MatDatepickerModule, MatNativeDateModule, RouterModule]
 })
 export class SharedModule { }

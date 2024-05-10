@@ -76,8 +76,8 @@ export class SignUpFormComponent implements OnDestroy {
         Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&\\.#_-])[A-Za-z\\d$@$!%*?&\\.#_-]*$')
       ]],
       repeatPassword: ['', [Validators.required]],
-      name: ['', [Validators.required, MyValidators.trimValueAndCheck,Validators.minLength(2), Validators.pattern('^[A-Za-z ]*$')]],
-      surname: ['', [Validators.required, MyValidators.trimValueAndCheck,Validators.minLength(2), Validators.pattern('^[A-Za-z -]*$')]],
+      name: ['', [Validators.required, MyValidators.trimValueAndCheck,Validators.minLength(2), Validators.pattern('^[A-Za-zÁÉÍÓÚáéíóúÑñÜüÇç\' ]*$')]],
+      surname: ['', [Validators.required, MyValidators.trimValueAndCheck,Validators.minLength(2), Validators.pattern('^[A-Za-zÁÉÍÓÚáéíóúÑñÜüÇç\' -]*$')]],
       day: ['01'],
       month: ['01'],
       year: ['2024']
@@ -105,7 +105,7 @@ export class SignUpFormComponent implements OnDestroy {
       password,
       name: name.replace(/\s+/g, ' ').trim(),
       surname: surname.replace(/\s+/g, ' ').trim(),
-      birthdate: `${day}/${month}/${year}`
+      birthdate: `${day}-${month}-${year}`
     };
 
     // me subscribo a mi servicio hasta que el componente se destruya

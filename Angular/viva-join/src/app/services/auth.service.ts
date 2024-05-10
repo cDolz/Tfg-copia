@@ -26,12 +26,17 @@ export class AuthService {
     return this.httpClient.post<any>(`${this.baseUrl}/users/check-email`, data);
   }
 
+  getUserData( email: string ): Observable<any> {
+    const encodedEmail = encodeURIComponent(email);
+    return this.httpClient.get<any>(`${this.baseUrl}/users/user/${encodedEmail}`);
+  }
 
   login(formValue: any): Observable<any> {
     return this.httpClient.post<any>(`${this.baseUrl}/users/login`, formValue).pipe(
       tap(response => {
         if (response.token) {
           Cookies.set('token', response.token, { secure: true, sameSite: 'Strict' });
+          Cookies.set('email', response.email, { secure: true, sameSite: 'Strict' });
         }
         return response;
       })
@@ -40,6 +45,7 @@ export class AuthService {
 
   logout(): void {
     Cookies.remove('token');
+    Cookies.remove('email');
     this.router.navigate(['/login']);
   }
 

@@ -47,4 +47,9 @@ export class EventsService {
     return this.httpClient.get<any>(`${this.baseUrl}/events/get-events/${encodedCategory}`);
   }
 
+  getEventDetail(title: string): Observable<any> {
+    const encodedTitle = encodeURIComponent(title);
+    return this.httpClient.get<any>(`${this.baseUrl}/events/get-event/${encodedTitle}`);
+  }
+
 }

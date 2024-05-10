@@ -5,6 +5,7 @@ import { CommonService } from '../../../services/common.service';
 import { EventsService } from '../../../services/events.service';
 import { MyValidators } from '../../../utils/validators/validators';
 import { EventRegisterData, EventRegisterDateData } from '../../../models/event.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-shared-event-register-form',
@@ -39,7 +40,7 @@ export class EventRegisterFormComponent implements OnDestroy {
   showPeriodicityErrors: boolean = false;
   showDatesErrors: boolean = false;
 
-  constructor(private formBuilder: FormBuilder, private eventsService: EventsService, private commonService: CommonService) {
+  constructor(private formBuilder: FormBuilder, private eventsService: EventsService, private commonService: CommonService, private router: Router) {
     this.initForm();
   }
 
@@ -156,7 +157,7 @@ export class EventRegisterFormComponent implements OnDestroy {
     formData.append('event', JSON.stringify(this.register));
     this.eventsService.register(formData).pipe(takeUntil(this.unsubscribe$)).subscribe({
       next: () => {
-        console.log('Evento registrado');
+        this.router.navigate(['/home']);
       },
       error: (error) => {
         this.errorMessage = error.error.message;

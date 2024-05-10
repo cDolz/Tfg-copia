@@ -20,6 +20,13 @@ export class CategoryDetailComponent implements OnInit {
     this.eventsService.getEventsByCategory(this.category).pipe(takeUntil(this.unsubscribe$)).subscribe(events => {
       this.events = events;
     });
-  }  
+  }
+
+  ngOnDestroy() {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
+  }
+
+
 
 }

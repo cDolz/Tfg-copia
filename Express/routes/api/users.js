@@ -54,12 +54,24 @@ router.post('/login', async (req, res, next) => {
         }
 
         // devuelvo token en caso de login correcto        
-        res.json({ token : createToken(user) });
+        res.json({ token : createToken(user), email : req.body.email });
               
     } catch (error) {
         next(error);
     }
 
+});
+
+router.get('/user/:email', async (req, res, next) => {
+    try {
+        const user = await User.findOne({ email: req.params.email });
+        if (!user) {
+            return res.status(404).json({ message: 'Usuario no encontrado' });
+        }
+        res.json(user);
+    } catch (error) {
+        next(error);
+    }
 });
 
 // creo el token
