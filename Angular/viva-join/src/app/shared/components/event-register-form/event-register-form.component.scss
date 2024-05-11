@@ -7,13 +7,21 @@ form {
     padding: 20px 60px;
     background-color: $tint-8;
     margin-left: 15%;
+
+    label {
+        font-size: 20px;
+        color: $shadow-8;
+        margin-bottom: 10px;
+    }
 }
 
 .input-div,
-.textarea-div {
+.textarea-div,
+.input-number {
     display: flex;
     flex-direction: column;
     width: 70%;
+    margin-bottom: 30px;
 }
 
 .textarea-div {
@@ -55,41 +63,114 @@ textarea {
     align-items: start;
 }
 
-input, textarea {
+input,
+textarea {
     width: 100%;
     padding: 17px 10px;
     border: 1px solid rgba($shadow-8, 0.6);
     border-radius: 4px;
-    background-color: rgba($tint-8, 0.15);  
-    color: $tint-8;
-    font-size: 14px;
-  
-    &::placeholder{
-      color: rgba($tint-8, 0.6);
+    background-color: rgba($tint-8, 0.15);
+    color: $shadow-8;
+    font-size: 16px;
+
+    &::placeholder {
+        color: rgba($tint-8, 0.6);
     }
-  
+
     &:focus {
-      outline: 3px solid $tint-8;
-      outline-offset: -2px;
+        outline: 3px solid $analog-tint-4;
+        outline-offset: -2px;
     }
-    
+
     &.ng-valid {
-      outline: 3px solid $green;
-      outline-offset: -2px;
+        outline: 3px solid $green;
+        outline-offset: -2px;
     }
-  
+
     &.ng-touched.ng-invalid {
-      outline: 3px solid $complementary-2;
-      outline-offset: -2px;
+        outline: 3px solid $complementary-2;
+        outline-offset: -2px;
     }
-  }
+}
 
 i,
 span {
     position: absolute;
+    color: $complementary-2;
+}
+
+i {
+    transform: translateX(-3px);
 }
 
 span {
+    margin-top: 3px;
+    padding: 3px;
     font-size: 12px;
-    background-color: grey;
+    background-color: $complementary-2;
+    color: $tint-8;
+}
+
+.duration-div {
+    margin-bottom: 30px;
+
+    select{
+        margin-bottom: none;
+    }
+    p {
+        margin-top: 10px;
+    }
+}
+
+select {
+    width: 31%;
+    padding: 12px 3px;
+    border: 1px solid rgba($shadow-8, 0.6);
+    border-radius: 4px;
+    background-color: $tint-8;
+    margin-bottom: 30px;
+
+    &.ng-valid {
+        outline: 3px solid $green;
+        outline-offset: -2px;
+    }
+
+    &.ng-touched.ng-invalid {
+        outline: 3px solid $complementary-2;
+        outline-offset: -2px;
+    }
+}
+
+.register-button {
+    width: 30%;
+    margin-top: 40px;
+    padding: 17px 12px;
+    background-color: $analog-6;
+    color: $tint-8;
+    border: none;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+    margin-bottom: 20px;
+
+    &:hover {
+        background-color: $analog-tint-2;
+    }
+
+    &:disabled {
+        background-color: rgba($analog-6, 0.2);
+      }
+}
+
+.event-dates-div{
+    p {
+        margin: 10px 10px 0 0;
+    }
+    select {
+        width: 15%;
+        margin-right: 10px;
+    }
+}
+
+.input-number {
+    width: 10%;
 }

@@ -4,7 +4,7 @@
         <div class="input-icon">
             <input type="text" formControlName="title" (focus)="showTitleErrors = true"
                 (blur)="showTitleErrors = false">
-            <i *ngIf="f['title'].invalid && f['title'].touched && !showTitleErrors"
+            <i class="normal-i" *ngIf="f['title'].invalid && f['title'].touched && !showTitleErrors"
                 class="material-symbols-outlined">error</i>
         </div>
         <div *ngIf="f['title'].invalid && f['title'].touched && showTitleErrors">
@@ -52,7 +52,7 @@
         </div>
     </div>
     <label for="maxParticipants">Número máximo de participantes: (Máx. 200)</label>
-    <div class="input-div">
+    <div class="input-number">
         <div class="input-icon">
             <input type="number" formControlName="maxParticipants" (focus)="showMaxParticipantsErrors = true"
                 (blur)="showMaxParticipantsErrors = false">
@@ -110,7 +110,7 @@
     <hr>
     <div>
         <label for="periodicity">¿Cuantas veces se va a repetir el evento? Máximo 10 registros</label>
-        <div class="input-div">
+        <div class="input-number">
             <div class="input-icon">
                 <input type="number" formControlName="periodicity" (focus)="showPeriodicityErrors = true"
                     (blur)="showPeriodicityErrors = false" (input)="updateNumberOfEntries()">
@@ -152,7 +152,7 @@
     <div *ngIf="f['dates'].invalid">
         <span *ngIf="f['dates']?.errors?.['datesRegisterUnique']">*Las fechas de eventos deben ser diferentes entre si</span>        
     </div>
-    <button [disabled]="!form || !form.valid || !form.dirty" type="submit">
+    <button class="register-button" [disabled]="!form || !form.valid || !form.dirty" type="submit">
         Registrar
     </button>    
 </form>
