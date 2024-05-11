@@ -1,7 +1,10 @@
 @import "../../../assets/colors.scss";
 
-.page {
-    
+.page {    
+    background: linear-gradient(to bottom, $tint-8 23%, $tint-6, $tint-4, $tint-2);
+    width: 100%;    
+    min-height: 100vh;
+
     .title {
         background-color: $shadow-8;
         padding: 140px 0 50px 0;

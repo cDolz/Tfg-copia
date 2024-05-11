@@ -1,25 +1,30 @@
+@import "../../../../assets/colors.scss";
+
 form {
     display: flex;
-    flex-direction: column;    
+    flex-direction: column;
     width: 70%;
-    padding: 10px;
-    border: 1px solid black;
+    padding: 20px 60px;
+    background-color: $tint-8;
+    margin-left: 15%;
 }
 
- .input-div, .textarea-div {
+.input-div,
+.textarea-div {
     display: flex;
     flex-direction: column;
     width: 70%;
 }
 
 .textarea-div {
-    width: 100%;    
+    width: 100%;
 }
 
 .duration-div {
     display: flex;
     flex-direction: row;
-    width: 50%;    
+    width: 50%;
+
     select {
         width: 30%;
     }
@@ -30,16 +35,17 @@ form {
 }
 
 textarea {
-    resize: none;    
+    resize: none;
     height: 280px;
 }
 
 .event-dates-div {
     display: flex;
-    flex-direction: row;    
+    flex-direction: row;
 }
 
-.input-icon, .textarea-icon {
+.input-icon,
+.textarea-icon {
     display: flex;
     align-items: center;
     justify-content: end;
@@ -51,18 +57,32 @@ textarea {
 
 input, textarea {
     width: 100%;
-    border: 1px solid black;
-
-    &:focus,
+    padding: 17px 10px;
+    border: 1px solid rgba($shadow-8, 0.6);
+    border-radius: 4px;
+    background-color: rgba($tint-8, 0.15);  
+    color: $tint-8;
+    font-size: 14px;
+  
+    &::placeholder{
+      color: rgba($tint-8, 0.6);
+    }
+  
+    &:focus {
+      outline: 3px solid $tint-8;
+      outline-offset: -2px;
+    }
+    
     &.ng-valid {
-        outline: none;
-        border-color: green;
+      outline: 3px solid $green;
+      outline-offset: -2px;
     }
-
+  
     &.ng-touched.ng-invalid {
-        border: 1px solid red;
+      outline: 3px solid $complementary-2;
+      outline-offset: -2px;
     }
-}
+  }
 
 i,
 span {
@@ -73,27 +93,3 @@ span {
     font-size: 12px;
     background-color: grey;
 }
-
-// .date-div {
-//     align-items: end;
-// }
-
-// select {
-//     width: 31%;
-//     border: 1px solid black;
-
-//     &:focus,
-//     &.ng-valid {
-//         border-color: green;
-//         outline: none;
-//     }
-
-//     &.ng-touched.ng-invalid {
-//         border: 1px solid red;
-//     }
-// }
-
-// button {
-//     width: 70%;
-//     margin: 25px 0 10px 0;
-// }
