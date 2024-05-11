@@ -4,9 +4,10 @@ import { LayoutComponent } from './layout.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { PagesModule } from '../pages/pages.module';
 import { RouterModule } from '@angular/router';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
-  declarations: [NavbarComponent, LayoutComponent],
+  declarations: [NavbarComponent, LayoutComponent, FooterComponent],
   imports: [    
     CommonModule,
     RouterModule,

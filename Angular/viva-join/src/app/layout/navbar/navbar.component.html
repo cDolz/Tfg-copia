@@ -1,5 +1,8 @@
 <nav>
-    <ul>
+    <div class="title">
+        <h1>vivaJoin</h1>
+    </div>
+    <ul>        
         <li *ngFor="let route of routes">
             <a [routerLink]="route.path">{{ route.label }}</a>
         </li>

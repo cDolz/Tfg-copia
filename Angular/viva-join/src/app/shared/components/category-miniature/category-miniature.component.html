@@ -1,3 +1,6 @@
 <div>
-    <a [routerLink]="route">{{ label }}</a>
+    <a [routerLink]="route">
+        <img [src]="'../../../../assets/images/' + label + '.png'" alt="">
+        <p>{{ label }}</p>
+    </a>
 </div>

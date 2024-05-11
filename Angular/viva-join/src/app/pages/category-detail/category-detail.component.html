@@ -1,2 +1,11 @@
-<h1> {{ category }} </h1>
-<app-shared-event-miniature *ngFor="let event of events" [title]="event.title" [file]="event.file" [route]="'/home/event/' + event.title"></app-shared-event-miniature>
+<div class="page">
+    <div class="title">
+        <h1>{{ category }}</h1>
+    </div>
+    <div class="grid-div">
+        <div *ngFor="let event of events">
+            <app-shared-event-miniature [title]="event.title" [file]="event.file"
+                [route]="'/home/event/' + event.title"></app-shared-event-miniature>
+        </div>
+    </div>
+</div>

@@ -1,1 +1,10 @@
-<app-shared-category-miniature *ngFor="let category of categories" [label]="category" [route]="'/home/category/' + category"></app-shared-category-miniature>
+<div class="page">
+    <div class="title">
+        <h1>Categorías</h1>
+    </div>    
+    <div class="grid-div">
+        <div *ngFor="let category of categories">
+            <app-shared-category-miniature [label]="category" [route]="'/home/category/' + category"></app-shared-category-miniature>
+        </div>
+    </div>
+</div>

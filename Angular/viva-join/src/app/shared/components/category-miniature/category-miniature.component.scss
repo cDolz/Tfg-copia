@@ -1,0 +1,19 @@
+@import "../../../../assets/colors.scss";
+
+a {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    margin-bottom: 30px;    
+
+    p{
+        margin-top: 10px;        
+        font-size: 18px;
+        color: $shadow-8;
+        font-weight: 500;
+    }
+
+    img {
+        border-radius: 12px;
+    }
+}

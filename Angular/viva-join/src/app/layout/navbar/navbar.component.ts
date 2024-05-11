@@ -11,8 +11,8 @@ export class NavbarComponent {
   routes = [
     { path: 'home-page', label: 'Inicio' },
     { path: 'categories', label: 'Categorías' },
-    { path: 'event-register', label: 'Crear Evento' },
-    { path: 'profile', label: 'Perfil' }
+    { path: 'event-register', label: 'Crear evento' },
+    { path: 'profile', label: 'Tu perfil' }
   ];
 
   constructor(private authService: AuthService) { }

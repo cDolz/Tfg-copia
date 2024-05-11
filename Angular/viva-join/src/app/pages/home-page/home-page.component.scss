@@ -1,0 +1,8 @@
+@import "../../../assets/colors.scss";
+
+.page {
+    background: linear-gradient(to bottom, $shadow-8 55%, $shadow-7, $shadow-6, $shadow-5);
+    width: 100%;    
+    min-height: 100vh;
+    padding-top: 120px;
+}
