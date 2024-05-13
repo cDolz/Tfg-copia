@@ -1,0 +1,41 @@
+@import "../../../assets/colors.scss";
+
+label, p {
+    padding-left: 10px;
+    font-size: 16px;
+}
+h2{
+    font-size: 22px;
+}
+
+input {
+    margin-left: 10px;
+}
+
+.dates-div {
+    padding: 15px 0 50px 20px;
+}
+
+.input-label{
+    margin-bottom: 10px;
+}
+
+button {
+    border: none;
+    font-size: 16px;
+    color: $tint-8;
+    background-color: $green;
+    border-radius: 6px;
+    padding: 15px 30px;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+        background-color: $tint-2;
+    }
+
+    &:disabled {
+        background-color: $tint-6;
+    }
+
+}

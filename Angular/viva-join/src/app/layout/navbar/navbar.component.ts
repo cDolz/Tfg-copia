@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-layout-navbar',
@@ -6,5 +7,18 @@ import { Component } from '@angular/core';
   styleUrl: './navbar.component.scss'
 })
 export class NavbarComponent {
-  public navBarContent: string[] = ['Inicio', 'Buscar', 'Mis eventos', 'Crear Evento', 'Perfil'];
+  
+  routes = [
+    { path: 'home-page', label: 'Inicio' },
+    { path: 'categories', label: 'Categorías' },
+    { path: 'event-register', label: 'Crear evento' },
+    { path: 'profile', label: 'Tu perfil' }
+  ];
+
+  constructor(private authService: AuthService) { }
+
+  logout(){
+    this.authService.logout();
+  }
+
 }

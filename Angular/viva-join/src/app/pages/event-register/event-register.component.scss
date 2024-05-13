@@ -1,0 +1,22 @@
+@import "../../../assets/colors.scss";
+
+.page {    
+    background: linear-gradient(to bottom, $tint-8 23%, $tint-6, $tint-4, $tint-2);
+    width: 100%;    
+    min-height: 100vh;
+    padding-bottom: 100px;
+
+    .title {
+        background-color: $shadow-8;
+        padding: 140px 0 50px 0;
+        margin-bottom: 50px;
+        
+        h1 {
+            color: $tint-8;
+            font-size: 40px;
+            margin-left: 5%;
+        }
+    }
+
+    
+}

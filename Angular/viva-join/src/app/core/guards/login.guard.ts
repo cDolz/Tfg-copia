@@ -9,6 +9,7 @@ export class LoginGuard implements CanActivate {
 
   constructor(private router: Router) { }
 
+  // Guarda para verificar que si hay token, no hay acceso a login y registro
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
 
     const token = Cookies.get('token');

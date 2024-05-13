@@ -10,8 +10,7 @@ import { CommonService } from '../../../services/common.service';
 @Component({
   selector: 'app-shared-sign-up-form',
   templateUrl: './sign-up-form.component.html',
-  styleUrl: './sign-up-form.component.scss',
-  // TODO changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrl: './sign-up-form.component.scss'
 })
 export class SignUpFormComponent implements OnDestroy {
 
@@ -77,8 +76,8 @@ export class SignUpFormComponent implements OnDestroy {
         Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&\\.#_-])[A-Za-z\\d$@$!%*?&\\.#_-]*$')
       ]],
       repeatPassword: ['', [Validators.required]],
-      name: ['', [Validators.required, Validators.pattern(/^\S+(\s?\S+)*$/)]],
-      surname: ['', [Validators.required, Validators.pattern(/^\S+(\s?\S+)*$/)]],
+      name: ['', [Validators.required, MyValidators.trimValueAndCheck,Validators.minLength(2), Validators.pattern('^[A-Za-zÁÉÍÓÚáéíóúÑñÜüÇç\' ]*$')]],
+      surname: ['', [Validators.required, MyValidators.trimValueAndCheck,Validators.minLength(2), Validators.pattern('^[A-Za-zÁÉÍÓÚáéíóúÑñÜüÇç\' -]*$')]],
       day: ['01'],
       month: ['01'],
       year: ['2024']
@@ -102,11 +101,11 @@ export class SignUpFormComponent implements OnDestroy {
     // reasigno los valores para que concuerden con mi model, fecha concatenada
     const { email, password, name, surname, day, month, year } = this.form.value;
     this.register = {
-      email,
+      email: email.replace(/\s+/g, ' ').trim(),
       password,
-      name,
-      surname,
-      birthdate: `${day}/${month}/${year}`
+      name: name.replace(/\s+/g, ' ').trim(),
+      surname: surname.replace(/\s+/g, ' ').trim(),
+      birthdate: `${day}-${month}-${year}`
     };
 
     // me subscribo a mi servicio hasta que el componente se destruya
@@ -114,7 +113,7 @@ export class SignUpFormComponent implements OnDestroy {
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: () => {
-          this.router.navigate(['/login']);
+          this.router.navigate(['/success'], { queryParams: { from: this.router.url } });
         },
         error: (error) => {
           this.errorMessage = error.error.message;

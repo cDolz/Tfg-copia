@@ -8,6 +8,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
   constructor() { }
 
+  // Interceptor para enviar el token en la cabecera de las peticiones
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const token = Cookies.get('token');    
     let cloned = req;
