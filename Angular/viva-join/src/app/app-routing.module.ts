@@ -11,11 +11,14 @@ import { CategoriesComponent } from './pages/categories/categories.component';
 import { CategoryDetailComponent } from './pages/category-detail/category-detail.component';
 import { EventDetailComponent } from './pages/event-detail/event-detail.component';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { SuccessComponent } from './pages/success/success.component';
+import { SuccessGuard } from './core/guards/success.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent, canActivate: [LoginGuard]},
   { path: 'sign-up', component: SignUpComponent, canActivate: [LoginGuard]},
+  {path: 'success', component: SuccessComponent, canActivate: [SuccessGuard]},
   { path: 'home', component: LayoutComponent, canActivate: [AuthGuard], children: [
     {path: '', redirectTo: 'home-page', pathMatch: 'full'},
     {path: 'home-page', component: HomePageComponent},
@@ -24,7 +27,9 @@ const routes: Routes = [
     {path: 'category/:category', component: CategoryDetailComponent},
     {path: 'event/:event', component: EventDetailComponent},
     {path: 'profile', component: ProfileComponent},
+    {path: 'success', component: SuccessComponent, canActivate: [SuccessGuard]}
   ]},
+  { path: '**', redirectTo: '/' }
 ];
 
 @NgModule({

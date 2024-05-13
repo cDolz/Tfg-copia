@@ -10,16 +10,17 @@ import { CategoryDetailComponent } from './category-detail/category-detail.compo
 import { EventDetailComponent } from './event-detail/event-detail.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { SuccessComponent } from './success/success.component';
 
 
 
 @NgModule({
-  declarations: [ LoginComponent, SignUpComponent, EventRegisterComponent, HomePageComponent, CategoriesComponent, CategoryDetailComponent, EventDetailComponent, ProfileComponent],
+  declarations: [ LoginComponent, SignUpComponent, EventRegisterComponent, HomePageComponent, CategoriesComponent, CategoryDetailComponent, EventDetailComponent, ProfileComponent, SuccessComponent],
   imports: [
     CommonModule,
     SharedModule,
     ReactiveFormsModule
   ],
-  exports: [LoginComponent, SignUpComponent, EventRegisterComponent, HomePageComponent, CategoriesComponent, CategoryDetailComponent, EventDetailComponent, ProfileComponent]
+  exports: [LoginComponent, SignUpComponent, EventRegisterComponent, HomePageComponent, CategoriesComponent, CategoryDetailComponent, EventDetailComponent, ProfileComponent, SuccessComponent]
 })
 export class PagesModule { }

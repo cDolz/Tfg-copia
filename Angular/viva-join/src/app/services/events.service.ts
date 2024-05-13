@@ -36,20 +36,35 @@ export class EventsService {
     this.baseUrl = environment.baseUrl;
   }
 
-  getCategories(): string[] { return this.categories.sort(); }
+  // ordena las categorías por orden alfabético
+  getCategories(): string[] { return this.categories.sort((a, b) => a.localeCompare(b)); }
 
+  // registra un evento
   register(formData: FormData): Observable<any> {    
     return this.httpClient.post<any>(`${this.baseUrl}/events/register-event`, formData);
   }
 
+  // obtiene los eventos de una categoría
   getEventsByCategory(category: string): Observable<any> {
     const encodedCategory = encodeURIComponent(category);
     return this.httpClient.get<any>(`${this.baseUrl}/events/get-events/${encodedCategory}`);
   }
 
+  // obtiene 10 eventos de una categoría
+  getTenEventsByCategory(category: string): Observable<any> {
+    const encodedCategory = encodeURIComponent(category);
+    return this.httpClient.get<any>(`${this.baseUrl}/events/get-ten-events/${encodedCategory}`);
+  }
+
+  // obtiene la información de un evento en concreto
   getEventDetail(title: string): Observable<any> {
     const encodedTitle = encodeURIComponent(title);
     return this.httpClient.get<any>(`${this.baseUrl}/events/get-event/${encodedTitle}`);
+  }
+
+  // obtiene los 10 eventos más populares
+  getTopTenEvents(): Observable<any> {    
+    return this.httpClient.get<any>(`${this.baseUrl}/events/get-top-ten-events`);
   }
 
 }

@@ -18,19 +18,23 @@ export class AuthService {
     this.baseUrl = environment.baseUrl;
   }
   
+  // registra un usuario
   register(formValue: any): Observable<any> {
     return this.httpClient.post<any>(`${this.baseUrl}/users/sign-up`, formValue);
   }
 
+  // verifica si un usuario existe en la base de datos
   checkDuplicatedEmail(data: { email: string }): Observable<any> {
     return this.httpClient.post<any>(`${this.baseUrl}/users/check-email`, data);
   }
-
+  
+  // obtiene los datos de un usuario por su email
   getUserData( email: string ): Observable<any> {
     const encodedEmail = encodeURIComponent(email);
     return this.httpClient.get<any>(`${this.baseUrl}/users/user/${encodedEmail}`);
   }
 
+  // inicia sesión y crea tokens para mantener dicha sesión, los almacena en las cookies
   login(formValue: any): Observable<any> {
     return this.httpClient.post<any>(`${this.baseUrl}/users/login`, formValue).pipe(
       tap(response => {
@@ -43,6 +47,7 @@ export class AuthService {
     );
   }
 
+  // metodo para cerrar sesión y eliminar las cookies
   logout(): void {
     Cookies.remove('token');
     Cookies.remove('email');

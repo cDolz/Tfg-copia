@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class CommonService {
 
+  // genera meses del año con asignación por nombre y número
   generateMonths() {
     const monthNames = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
     return monthNames.map((month, index) => {

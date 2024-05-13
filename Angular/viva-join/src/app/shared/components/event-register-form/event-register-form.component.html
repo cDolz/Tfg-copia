@@ -109,7 +109,7 @@
     </div>
     <hr>
     <div>
-        <label for="periodicity">¿Cuantas veces se va a repetir el evento? Máximo 10 registros</label>
+        <label for="periodicity">¿Cuantas veces se va a repetir el evento? (Máximo 10 registros):</label>
         <div class="input-number">
             <div class="input-icon">
                 <input type="number" formControlName="periodicity" (focus)="showPeriodicityErrors = true"
@@ -122,6 +122,7 @@
                 <span *ngIf="f['periodicity']?.errors?.['min']">*Mínimo una fecha</span>
             </div>
         </div>
+        <label for="dates">Registra aquí las fechas:</label>
         <div formArrayName="dates">
             <div *ngFor="let dateArray of fDates; let i = index">
                 <div [formArrayName]="i" class="event-dates-div">

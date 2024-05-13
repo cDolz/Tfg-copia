@@ -6,9 +6,15 @@
         <div class="title-div">
             <h1>{{ title }}</h1>
         </div>
-    </div>    
-    <p>{{ description }}</p>
-    <p>Duración: {{ duration }}</p>
-    <p>Localización: {{ location }}</p>
-    <p>Tipo de evento: {{ categorization }}</p>
+    </div>
+    <div class="info-div">
+        <h2>Descripción</h2>
+        <p>{{ description }}</p>
+        <h2>Duración</h2>
+        <p>El evento dura <strong>{{ duration }}</strong> horas.</p>
+        <h2>Ubicación</h2>
+        <p>La dirección donde se celebrará el evento es: <strong>{{ location }}.</strong></p>
+        <h2>Tipo de evento</h2>
+        <p>En este evento vivirás experiencias relaccionadas con: <strong>{{ categorization }}.</strong></p>
+    </div>
 </div>

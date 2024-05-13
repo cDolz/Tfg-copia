@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { EventsService } from '../../services/events.service';
 import { Subject, takeUntil } from 'rxjs';
+import { EventsService } from '../../services/events.service';
 
 @Component({
   selector: 'app-category-detail',
@@ -15,11 +15,12 @@ export class CategoryDetailComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private eventsService: EventsService) { }
 
+  // recibe el parametro de la url y obtiene los eventos de esa categoria
   ngOnInit() {
     this.category = this.route.snapshot.paramMap.get('category') ?? '';
     this.eventsService.getEventsByCategory(this.category).pipe(takeUntil(this.unsubscribe$)).subscribe(events => {
       this.events = events;
-    });
+    });    
   }
 
   ngOnDestroy() {

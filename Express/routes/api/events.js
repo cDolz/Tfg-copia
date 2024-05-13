@@ -42,6 +42,16 @@ router.get('/get-events/:category', async (req, res, next) => {
     }
 });
 
+router.get('/get-ten-events/:category', async (req, res, next) => {
+    try{
+        const category = decodeURIComponent(req.params.category);        
+        const events = await Event.find({ categorization: category }).limit(10);
+        res.json(events);
+    }catch(error){
+        next(error);
+    }
+});
+
 router.get('/get-event/:title', async (req, res, next) => {
     try {
         const title = decodeURIComponent(req.params.title);        
@@ -51,10 +61,21 @@ router.get('/get-event/:title', async (req, res, next) => {
             return res.status(404).json({ message: 'Event not found' });
         }
 
-        const eventDates = await EventDate.find({ event: event._id });
+        let eventDates = await EventDate.find({ event: event._id });
+
+        eventDates = eventDates.filter(eventDate => eventDate.participants < event.maxParticipants);
 
         res.json({ event, eventDates });
     } catch (error) {
+        next(error);
+    }
+});
+
+router.get('/get-top-ten-events', async (req, res, next) => {
+    try{
+        const events = await Event.find().sort({ popularity: -1 }).limit(10);
+        res.json(events);
+    }catch(error){
         next(error);
     }
 });

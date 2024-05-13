@@ -1,4 +1,4 @@
-import { Component, ElementRef, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { Component, ElementRef, Input, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import SwiperCore, { Navigation } from 'swiper';
 
 SwiperCore.use([Navigation]);
@@ -10,8 +10,8 @@ SwiperCore.use([Navigation]);
 })
 export class EventScrollComponent {
 
-  public events: string[] = ['evento1', 'evento2', 'evento3', 'evento4', 'evento5', 'evento6', 'evento7', 'evento8', 'evento9',
-    'evento10', 'evento11', 'evento12', 'evento13', 'evento14', 'evento15'];
+  @Input() category!:string;
+  @Input() events!: any[];
 
   @ViewChildren('divSwiper') divSwiperList!: QueryList<ElementRef>;
 
@@ -21,6 +21,7 @@ export class EventScrollComponent {
 
   @ViewChild('swiper') swiper!: ElementRef;
 
+  // metodos para añadir animación personalizada al slide
   animateSliders(actualIndex: number) {    
     this.divSwiperList.forEach((element: ElementRef, index: number) => {
       if(index < actualIndex){

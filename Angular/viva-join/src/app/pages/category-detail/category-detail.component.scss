@@ -6,15 +6,15 @@
 
     .title {
         background-color: $shadow-8;
-        padding: 140px 0 50px 0;
+        padding: 140px 0 50px;
         margin-bottom: 50px;
-    }
 
-    h1 {
-        color: $tint-8;
-        font-size: 40px;
-        margin-left: 5%;
-    }
+        h1 {
+            color: $tint-8;
+            font-size: 40px;
+            margin-left: 5%;
+        }
+    }    
 
     div {
         padding: 0 15px 0 15px;
@@ -26,5 +26,5 @@
     width: 90%;
     margin-left: 5%;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(25%, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(25%, 1fr));    
 }

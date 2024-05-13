@@ -1,4 +1,18 @@
-::ng-deep {
+@import "../../../../assets/colors.scss";
+
+h2{
+  margin-left: 20px;
+  font-size: 22px;
+  color: $tint-8;
+}
+
+swiper {
+  z-index: 0;
+  margin-bottom: 20px;
+}
+
+::ng-deep {  
+
   swiper:not(:hover) {
     .swiper-button-prev,
     .swiper-button-next {
@@ -47,9 +61,12 @@ img {
   width: 180px;
   height: 180px;
   transition: opacity 0.3s ease;
+  border-radius: 5px;  
 }
 
 span {
+  font-size: 13px;
+  color: $tint-8;
   transition: opacity 0.3s ease;
 }
 

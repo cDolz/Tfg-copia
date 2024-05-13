@@ -116,6 +116,7 @@ export class EventRegisterFormComponent implements OnDestroy {
     this.updateNumberOfEntries();
   }
 
+  // se valida si el archivo seleccionado es una imagen
   onFileSelect($event: Event) {
     const fileInput = $event.target as HTMLInputElement;
     if (fileInput.files && fileInput.files.length > 0) {
@@ -131,7 +132,7 @@ export class EventRegisterFormComponent implements OnDestroy {
       this.selectedFile = file;
     }
   }
-
+// se envía el formulario al servicio para registrar el evento
   onSubmit() {    
     const { title, description, durationHours, durationMinutes, maxParticipants, location, categorization, organizer, dates } = this.form.value;
     this.arrayOfDates = [];
@@ -157,7 +158,7 @@ export class EventRegisterFormComponent implements OnDestroy {
     formData.append('event', JSON.stringify(this.register));
     this.eventsService.register(formData).pipe(takeUntil(this.unsubscribe$)).subscribe({
       next: () => {
-        this.router.navigate(['/home']);
+        this.router.navigate(['home/success'], { queryParams: { from: this.router.url } });
       },
       error: (error) => {
         this.errorMessage = error.error.message;

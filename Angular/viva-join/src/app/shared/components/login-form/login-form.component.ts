@@ -39,7 +39,7 @@ export class LoginFormComponent {
   redirectToSignUp() {
     this.router.navigate(['/sign-up']);
   }
-
+  // comprueba si el usuario está registrado y logea
   onSubmit() {
 
     const { email, password } = this.form.value;

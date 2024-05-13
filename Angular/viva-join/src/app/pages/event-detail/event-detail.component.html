@@ -1,12 +1,21 @@
-<div class="page">    
+<div class="page">
     <app-shared-event-info [file]="eventData?.file" [title]="eventData?.title" [description]="eventData?.description"
         [duration]="eventData?.duration" [location]="eventData?.location"
         [categorization]="eventData?.categorization"></app-shared-event-info>
-    <form [formGroup]="form" (ngSubmit)="onSubmit()">
-        <div *ngFor="let eventDate of eventDates; let i = index">
-            <input type="radio" id="input{{ i }}" formControlName="options" [value]="eventDate._id">
-            <label for="input{{ i }}">{{ eventDate.date }} a las {{ eventDate.hour }}</label>
+    <div class="dates-div">
+        <h2>Fechas Disponibles:</h2>
+        <div *ngIf="eventDates && eventDates.length; else noDates">
+            <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                <div class="input-label" *ngFor="let eventDate of eventDates; let i = index">
+                    <input type="radio" id="input{{ i }}" formControlName="options" [value]="eventDate._id">
+                    <label for="input{{ i }}">{{ eventDate.date }} a las {{ eventDate.hour }}</label>
+                </div>
+
+                <button type="submit" [disabled]="!form.valid">Suscribirse al evento</button>
+            </form>
         </div>
-        <button type="submit">Submit</button>
-    </form>
+        <ng-template #noDates>
+            <p>No hay fechas disponibles</p>
+        </ng-template>
+    </div>
 </div>

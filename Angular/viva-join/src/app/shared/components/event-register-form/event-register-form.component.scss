@@ -32,13 +32,15 @@ form {
     display: flex;
     flex-direction: row;
     width: 50%;
+    margin-bottom: 30px;
 
     select {
         width: 30%;
+        
     }
 
     p {
-        margin: 0 10px;
+        margin: 10px 10px 0 10px;
     }
 }
 
@@ -109,17 +111,6 @@ span {
     font-size: 12px;
     background-color: $complementary-2;
     color: $tint-8;
-}
-
-.duration-div {
-    margin-bottom: 30px;
-
-    select{
-        margin-bottom: none;
-    }
-    p {
-        margin-top: 10px;
-    }
 }
 
 select {

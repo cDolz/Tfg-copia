@@ -5,5 +5,5 @@ const { checkToken } = require('../middleware/checkToken');
 // Ruta para registro y login
 router.use('/users', require('./api/users'));
 router.use('/events', checkToken, require('./api/events'));
-
+router.use('/subscriptions', checkToken, require('./api/subscriptions'));
 module.exports = router;
