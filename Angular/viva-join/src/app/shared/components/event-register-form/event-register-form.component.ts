@@ -1,7 +1,8 @@
 import { Component, OnDestroy } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subject, takeUntil } from 'rxjs';
 import { EventsService } from '../../../services/events.service';
+import { CommonService } from '../../../services/common.service';
 
 @Component({
   selector: 'app-shared-event-register-form',
@@ -16,11 +17,17 @@ export class EventRegisterFormComponent implements OnDestroy {
   selectedFile!: File;
   categories: string[] = this.eventsService.getCategories();
 
+  days: number[] = Array.from({ length: 31 }, (_, i) => i + 1);
+  
+  months: { name: string, number: string }[] = this.commonService.generateMonths();
+  
+  currentYear: number = new Date().getFullYear();
+
   showNameErrors: boolean = false;
 
-  numberOfEntries: number = 1;
+  numberOfEntries: number = 1;  
 
-  constructor(private formBuilder: FormBuilder, private eventsService: EventsService) {
+  constructor(private formBuilder: FormBuilder, private eventsService: EventsService, private commonService: CommonService) {
     this.initForm();
   }
 
@@ -29,10 +36,11 @@ export class EventRegisterFormComponent implements OnDestroy {
   }
 
   updateNumberOfEntries() {
-    if (this.form.get('periodicity')?.value > 10) {
+    const periodicity = this.form.get('periodicity')?.value;
+    if (periodicity > 10) {
       return;
-    }
-    this.numberOfEntries = this.form.get('periodicity')?.value;
+    }      
+    this.numberOfEntries = periodicity;
   }
 
   initForm() {
@@ -45,7 +53,8 @@ export class EventRegisterFormComponent implements OnDestroy {
       categorization: [this.categories[0], Validators.required],
       organizer: ['', Validators.required, Validators.pattern(/^\S+(\s?\S+)*$/)],
       file: ['', Validators.required],
-      periodicity: ['1', Validators.required],      
+      periodicity: ['1', Validators.required],
+      days: this.formBuilder.array([this.numberOfEntries]),
       maxParticipants: [''],
     });
   }

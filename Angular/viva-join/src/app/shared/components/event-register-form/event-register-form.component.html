@@ -1,33 +1,46 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
-    <label for="title">Título del evento:</label>
-    <input type="text" formControlName="title">
-    <label for="description">Descripción del evento:</label>
-    <textarea formControlName="description"></textarea>
-    <label for="durationTime">Duración del evento:</label>
-    <div id="durationTime">
-        <input type="number" formControlName="durationHours">
-        <p>horas</p>
-        <input type="number" formControlName="durationMinutes">
-        <p>minutos</p>
+  <label for="title">Título del evento:</label>
+  <input type="text" formControlName="title" />
+  <label for="description">Descripción del evento:</label>
+  <textarea formControlName="description"></textarea>
+  <label for="durationTime">Duración del evento:</label>
+  <div id="durationTime">
+    <input type="number" formControlName="durationHours" />
+    <p>horas</p>
+    <input type="number" formControlName="durationMinutes" />
+    <p>minutos</p>
+  </div>
+  <label for="location">Dirección del evento:</label>
+  <input type="text" formControlName="location" />
+  <label for="categorization">Tipo de evento:</label>
+  <select formControlName="categorization">
+    <option *ngFor="let category of categories" [value]="category">
+      {{ category }}
+    </option>
+  </select>
+  <label for="organizer">Organizador particular o empresa organizadora:</label>
+  <input type="text" formControlName="organizer" />
+  <label for="file">Imagen de portada:</label>
+  <input type="file" (change)="onFileSelect($event)" formControlName="file" />
+  <hr />
+  <div>
+    <label for="periodicity"
+      >¿Cuantas veces se va a repetir el evento? Máximo 10 registros</label
+    >
+    <input
+      type="number"
+      value="1"
+      formControlName="periodicity"
+      (input)="updateNumberOfEntries()"
+    />
+    <input type="date" />
+    <div formArrayName="days">
+        <div *ngFor="let entry of f['days'].l">
+            <p>hola</p>
+        </div>
     </div>
-    <label for="location">Dirección del evento:</label>
-    <input type="text" formControlName="location">
-    <label for="categorization">Tipo de evento:</label>
-    <select formControlName="categorization">
-        <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
-    </select>
-    <label for="organizer">Organizador particular o empresa organizadora:</label>
-    <input type="text" formControlName="organizer">
-    <label for="file">Imagen de portada:</label>
-    <input type="file" (change)="onFileSelect($event)" formControlName="file">
-    <hr>
-    <div>
-        <label for="periodicity">¿Cuantas veces se va a repetir el evento? Máximo 10 registros</label>
-        <input type="number" value="1" formControlName="periodicity" (input)="updateNumberOfEntries()">
-        <input type="date">
-        <p *ngFor="let i of [].constructor(numberOfEntries)">Hola</p>
-    </div>
-    <button [disabled]="!form || !form.valid || !form.dirty" type="submit">
-        Registrar
-    </button>
+  </div>
+  <button [disabled]="!form || !form.valid || !form.dirty" type="submit">
+    Registrar
+  </button>
 </form>
