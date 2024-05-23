@@ -1,0 +1,161 @@
+@import "../../../../assets/colors.scss";
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 35%;
+  padding: 20px 60px;
+  background-color: rgba($tint-8, 0.1);
+  margin-top: 100px;
+  margin-bottom: 100px;
+
+  h1 {
+    align-self: baseline;
+    color: $tint-8;
+    font-family: "Roboto", sans-serif;
+    font-weight: 600;
+    font-size: 30px;
+    margin-top: 30px;
+  }
+}
+
+.input-div,
+.name-surname,
+.date-div,
+.date-select {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.name-surname,
+.date-select {
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.name-surname,
+.input-div,
+.date-div {
+  margin-top: 25px;
+}
+
+.name-surname > .input-div {
+  margin-top: 0;
+  width: 49%;
+}
+
+.input-icon {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+}
+
+input {
+  width: 100%;
+  padding: 17px 10px;
+  border: 1px solid rgba($tint-8, 0.6);
+  border-radius: 4px;
+  background-color: rgba($tint-8, 0.15);  
+  color: $tint-8;
+  font-size: 14px;
+
+  &::placeholder{
+    color: rgba($tint-8, 0.6);
+  }
+
+  &:focus {
+    outline: 3px solid $tint-8;
+    outline-offset: -2px;
+  }
+  
+  &.ng-valid {
+    outline: 3px solid $green;
+    outline-offset: -2px;
+  }
+
+  &.ng-touched.ng-invalid {
+    outline: 3px solid $complementary-2;
+    outline-offset: -2px;
+  }
+}
+
+i,
+span {
+  position: absolute;
+}
+
+i{
+  transform: translateX(-4px);
+  color: $complementary-2;
+}
+
+span {
+  padding: 3px;
+  font-size: 12px;
+  color: $tint-8;
+  background-color: $complementary-2;
+  margin-top: 5px;
+}
+
+.date-div {
+  align-items: end;  
+}
+
+select {
+  width: 31%;
+  padding: 12px 3px;
+  border: 1px solid rgba($tint-8, 0.6);
+  border-radius: 4px;
+  background-color: $analog-tint-7;    
+
+  &.ng-valid {
+    outline: 3px solid $green;
+    outline-offset: -2px;
+  }
+
+  &.ng-touched.ng-invalid {
+    outline: 3px solid $complementary-2;
+    outline-offset: -2px;
+  }
+}
+
+.date-errors{
+    display: flex;
+    width: 100%;    
+    justify-content: end;
+}
+
+button {  
+  margin: 25px 0 10px 0;
+}
+
+.redirect {
+  color: $analog-tint-3;
+  margin-bottom: 20px;
+  font-size: 15px;
+
+  &:hover {
+    color: $analog-tint-4;
+  }
+}
+
+.register-button {
+  width: 100%;
+  padding: 12px 10px;
+  background-color: $analog-6;
+  color: $tint-8;
+  border: none;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+  margin-bottom: 20px;
+
+  &:hover {
+    background-color: $analog-tint-2;
+  }
+
+  &:disabled {
+    background-color: rgba($analog-tint-8, 0.2);
+  }
+}

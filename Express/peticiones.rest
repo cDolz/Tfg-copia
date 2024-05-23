@@ -1,0 +1,80 @@
+POST http://localhost:3000/api/users/sign-up
+Content-Type: application/json
+
+{    
+    "email": "carlosdolzm@gmail.com",
+    "password": "123456",
+    "name": "Carlos",
+    "surname": "Dolz Martín",
+    "birthDate": "12-Septiembre-1994"
+}
+
+###
+
+POST http://localhost:3000/api/users/login
+Content-Type: application/json
+
+{        
+    "email": "carlosdolzm@gmail.com",
+    "password": "Rastapapu.7184"
+}
+
+###
+
+POST http://localhost:3000/api/events/register-event
+Content-Type: multipart/form-data; boundary=boundary
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjE1MDZlMzQyMTYwMTk2M2ZiNTI2YzUiLCJpYXQiOjE3MTUwNzgyNDN9.0Uc-NKpsD9pP8Xx4dyfoDSCScmzz7sXLqbtErkTyRng
+
+--boundary
+Content-Disposition: form-data; name="title"
+
+Título del evento
+--boundary
+Content-Disposition: form-data; name="description"
+
+Descripción del evento
+--boundary
+Content-Disposition: form-data; name="duration"
+
+Duración del evento
+--boundary
+Content-Disposition: form-data; name="maxParticipants"
+
+100
+--boundary
+Content-Disposition: form-data; name="location"
+
+Ubicación del evento
+--boundary
+Content-Disposition: form-data; name="categorization"
+
+Categorización del evento
+--boundary
+Content-Disposition: form-data; name="organizer"
+
+Organizador del evento
+--boundary
+Content-Disposition: form-data; name="dates"
+
+[{"date": "2022-12-01", "hour": "10:00", "participants": 50}, {"date": "2022-12-02", "hour": "11:00", "participants": 60}]
+--boundary
+Content-Disposition: form-data; name="file"; filename="imagenPrueba.jpeg"
+Content-Type: image/jpeg
+
+< C:\Users\carlos.dolz\Desktop\imagenPrueba.jpeg
+--boundary--
+
+###
+
+GET http://localhost:3000/api/events/get-events/Animales%20y%20Naturaleza
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjE1MDZlMzQyMTYwMTk2M2ZiNTI2YzUiLCJpYXQiOjE3MTUwNzgyNDN9.0Uc-NKpsD9pP8Xx4dyfoDSCScmzz7sXLqbtErkTyRng
+
+###
+
+GET http://localhost:3000/api/events/get-event/prueba%201
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjE1MDZlMzQyMTYwMTk2M2ZiNTI2YzUiLCJpYXQiOjE3MTUwNzgyNDN9.0Uc-NKpsD9pP8Xx4dyfoDSCScmzz7sXLqbtErkTyRng
+
+###
+
+GET http://localhost:3000/api/users/user/carlosdolzm%40gmail.com
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjE1MDZlMzQyMTYwMTk2M2ZiNTI2YzUiLCJpYXQiOjE3MTUwNzgyNDN9.0Uc-NKpsD9pP8Xx4dyfoDSCScmzz7sXLqbtErkTyRng

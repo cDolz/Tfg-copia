@@ -1,0 +1,159 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <label for="title">Título del evento:</label>
+    <div class="input-div">
+        <div class="input-icon">
+            <input type="text" formControlName="title" (focus)="showTitleErrors = true"
+                (blur)="showTitleErrors = false">
+            <i class="normal-i" *ngIf="f['title'].invalid && f['title'].touched && !showTitleErrors"
+                class="material-symbols-outlined">error</i>
+        </div>
+        <div *ngIf="f['title'].invalid && f['title'].touched && showTitleErrors">
+            <span *ngIf="f['title']?.errors?.['required']">*Campo requerido</span>
+            <span *ngIf="f['title']?.errors?.['valueIsEmpty']">*Campo requerido</span>
+            <span *ngIf="f['title']?.errors?.['minlength']">*Mínimo 4 caracteres</span>
+        </div>
+    </div>
+    <label for="description">Descripción del evento:</label>
+    <div class="textarea-div">
+        <div class="textarea-icon">
+            <textarea formControlName="description" (focus)="showDescriptionErrors = true"
+                (blur)="showDescriptionErrors = false"></textarea>
+            <i *ngIf="f['description'].invalid && f['description'].touched && !showDescriptionErrors"
+                class="material-symbols-outlined">error</i>
+        </div>
+        <div *ngIf="f['description'].invalid && f['description'].touched && showDescriptionErrors">
+            <span *ngIf="f['description']?.errors?.['required']">*Campo requerido</span>
+            <span *ngIf="f['description']?.errors?.['valueIsEmpty']">*Campo requerido</span>
+            <span *ngIf="f['description']?.errors?.['minlength']">*Mínimo 4 caracteres</span>
+            <span *ngIf="f['description']?.errors?.['maxlength']">*Máximo 1300 caracteres</span>
+        </div>
+    </div>
+    <label for="durationTime">Duración del evento:</label>
+    <div class="duration-div">
+        <select formControlName="durationHours" (focus)="markDurationAsTouched(); showDurationErrors = true"
+            (blur)="showDurationErrors = false">
+            <option *ngFor="let hour of durationHours" [value]="hour.toString().padStart(2, '0')">{{
+                hour.toString().padStart(2, '0') }}</option>
+        </select>
+        <p>horas</p>
+        <select formControlName="durationMinutes" (focus)="markDurationAsTouched(); showDurationErrors = true"
+            (blur)="showDurationErrors = false">
+            <option *ngFor="let minute of minutes" [value]="minute.toString().padStart(2, '0')">{{
+                minute.toString().padStart(2, '0') }}</option>
+        </select>
+        <p>minutos</p>
+        <div class="duration-errors">
+            <i *ngIf="f['durationHours'].touched && f['durationHours'].invalid && !showDurationErrors"
+                class="material-symbols-outlined">error</i>
+            <span class="error-span"
+                *ngIf="f['durationHours'].touched && f['durationHours'].invalid && showDurationErrors">Indica una
+                duración
+                mínima</span>
+        </div>
+    </div>
+    <label for="maxParticipants">Número máximo de participantes: (Máx. 200)</label>
+    <div class="input-number">
+        <div class="input-icon">
+            <input type="number" formControlName="maxParticipants" (focus)="showMaxParticipantsErrors = true"
+                (blur)="showMaxParticipantsErrors = false">
+            <i *ngIf="f['maxParticipants'].invalid && f['maxParticipants'].touched && !showMaxParticipantsErrors"
+                class="material-symbols-outlined">error</i>
+        </div>
+        <div *ngIf="f['maxParticipants'].invalid && f['maxParticipants'].touched && showMaxParticipantsErrors">
+            <span *ngIf="f['maxParticipants']?.errors?.['required']">*Campo requerido</span>
+            <span *ngIf="f['maxParticipants']?.errors?.['min']">*Mínimo 1 participante</span>
+        </div>
+    </div>
+    <label for="location">Dirección del evento:</label>
+    <div class="input-div">
+        <div class="input-icon">
+            <input type="text" formControlName="location" (focus)="showLocationErrors = true"
+                (blur)="showLocationErrors = false">
+            <i *ngIf="f['location'].invalid && f['location'].touched && !showLocationErrors"
+                class="material-symbols-outlined">error</i>
+        </div>
+        <div *ngIf="f['location'].invalid && f['location'].touched && showLocationErrors">
+            <span *ngIf="f['location']?.errors?.['required']">*Campo requerido</span>
+            <span *ngIf="f['location']?.errors?.['valueIsEmpty']">*Campo requerido</span>
+        </div>
+    </div>
+    <label for="categorization">Tipo de evento:</label>
+    <select formControlName="categorization">
+        <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+    </select>
+    <label for="organizer">Organizador particular o empresa organizadora:</label>
+    <div class="input-div">
+        <div class="input-icon">
+            <input type="text" formControlName="organizer" (focus)="showOrganizerErrors = true"
+                (blur)="showOrganizerErrors = false">
+            <i *ngIf="f['organizer'].invalid && f['organizer'].touched && !showOrganizerErrors"
+                class="material-symbols-outlined">error</i>
+        </div>
+        <div *ngIf="f['organizer'].invalid && f['organizer'].touched && showOrganizerErrors">
+            <span *ngIf="f['organizer']?.errors?.['required']">*Campo requerido</span>
+            <span *ngIf="f['organizer']?.errors?.['valueIsEmpty']">*Campo requerido</span>
+        </div>
+    </div>
+    <label for="file">Imagen de portada:</label>
+    <div class="input-div">
+        <div class="input-icon">
+            <input type="file" (change)="onFileSelect($event)" formControlName="file" (focus)="showFileErrors = true"
+                (blur)="showFileErrors = false">
+            <i *ngIf="f['file'].invalid && f['file'].touched && !showFileErrors"
+                class="material-symbols-outlined">error</i>
+        </div>
+        <div *ngIf="f['file'].invalid && f['file'].touched && showFileErrors">
+            <span *ngIf="f['file']?.errors?.['required']">*Campo requerido</span>
+            <span *ngIf="f['file']?.errors?.['notImage']">*El archivo no es una imagen</span>
+        </div>
+    </div>
+    <hr>
+    <div>
+        <label for="periodicity">¿Cuantas veces se va a repetir el evento? (Máximo 10 registros):</label>
+        <div class="input-number">
+            <div class="input-icon">
+                <input type="number" formControlName="periodicity" (focus)="showPeriodicityErrors = true"
+                    (blur)="showPeriodicityErrors = false" (input)="updateNumberOfEntries()">
+                <i *ngIf="f['periodicity'].invalid && f['periodicity'].touched && !showPeriodicityErrors"
+                    class="material-symbols-outlined">error</i>
+            </div>
+            <div *ngIf="f['periodicity'].invalid && f['periodicity'].touched && showPeriodicityErrors">
+                <span *ngIf="f['periodicity']?.errors?.['required']">*Campo requerido</span>
+                <span *ngIf="f['periodicity']?.errors?.['min']">*Mínimo una fecha</span>
+            </div>
+        </div>
+        <label for="dates">Registra aquí las fechas:</label>
+        <div formArrayName="dates">
+            <div *ngFor="let dateArray of fDates; let i = index">
+                <div [formArrayName]="i" class="event-dates-div">
+                    <select formControlName="0">
+                        <option *ngFor="let day of generateDays(fDatesArrays[i].get('1'))"
+                            [value]="day.toString().padStart(2, '0')">{{ day }}</option>
+                    </select>
+                    <select formControlName="1" (change)="changeYear(fDatesArrays[i].get('1'), i)">
+                        <option *ngFor="let month of generateNextSixMonths()" [value]="month.number">
+                            {{ month.name }}
+                        </option>
+                    </select>
+                    <p>de {{years[i]}}</p>
+                    <select formControlName="2">
+                        <option *ngFor="let hour of hours" [value]="hour.toString().padStart(2, '0')">
+                            {{ hour.toString().padStart(2, '0') }}
+                        </option>
+                    </select>
+                    <select formControlName="3">
+                        <option *ngFor="let minute of minutes" [value]="minute.toString().padStart(2, '0')">
+                            {{ minute.toString().padStart(2, '0') }}
+                        </option>
+                    </select>
+                </div>
+            </div>
+        </div>        
+    </div>
+    <div *ngIf="f['dates'].invalid">
+        <span *ngIf="f['dates']?.errors?.['datesRegisterUnique']">*Las fechas de eventos deben ser diferentes entre si</span>        
+    </div>
+    <button class="register-button" [disabled]="!form || !form.valid || !form.dirty" type="submit">
+        Registrar
+    </button>    
+</form>

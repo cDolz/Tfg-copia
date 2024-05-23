@@ -1,0 +1,15 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <h1>Iniciar Sesión</h1>
+  <input
+    type="email"
+    placeholder="Correo electrónico"
+    formControlName="email"
+  />
+  <input type="password" placeholder="Contraseña" formControlName="password" />
+  <div class="button-span">
+    <button type="submit" class="sign-up-button">Iniciar sesión</button>
+    <span *ngIf="errorMessage"> {{errorMessage}} </span>
+  </div>  
+  <hr />
+  <button class="register-button" (click)="redirectToSignUp()">Crear nueva cuenta</button>
+</form>

@@ -1,0 +1,11 @@
+<div class="page">
+    <div class="title">
+        <h1>Inicio</h1>
+    </div>
+
+    <div class="my-component">        
+        <app-shared-event-scroll [events]="topTenEvents" category="Los diez eventos más populares"></app-shared-event-scroll>
+        <app-shared-event-scroll *ngFor="let category of categories; let i = index" [category]="category" [events]="events[i]"></app-shared-event-scroll>
+    </div>   
+    
+</div>

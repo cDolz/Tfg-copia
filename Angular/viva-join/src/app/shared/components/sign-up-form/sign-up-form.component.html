@@ -1,0 +1,116 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <h1>Registrarse</h1>
+  <div class="name-surname">
+    <div class="input-div">
+      <div class="input-icon">
+        <input type="text" placeholder="Nombre" formControlName="name" (focus)="showNameErrors = true"
+          (blur)="showNameErrors = false" />        
+          <i *ngIf="f['name'].invalid && f['name'].touched && !showNameErrors" class="material-symbols-outlined">error</i>                 
+      </div>
+      <div *ngIf="f['name'].invalid && f['name'].touched && showNameErrors">
+        <span *ngIf="f['name']?.errors?.['required']">*Campo requerido</span>
+        <span *ngIf="f['name']?.errors?.['valueIsEmpty']">*Campo requerido</span>
+        <span *ngIf="f['name']?.errors?.['minlength']">*Campo requerido</span>
+        <span *ngIf="f['name']?.errors?.['pattern']">*Caracter no permitido</span>
+      </div>
+    </div>
+    <div class="input-div">
+      <div class="input-icon">
+        <input type="text" placeholder="Apellidos" formControlName="surname" (focus)="showSurnameErrors = true"
+          (blur)="showSurnameErrors = false" />
+        <i *ngIf="
+            f['surname'].invalid && f['surname'].touched && !showSurnameErrors
+          " class="material-symbols-outlined">error</i>
+      </div>
+      <div *ngIf="
+          f['surname'].invalid && f['surname'].touched && showSurnameErrors
+        ">
+        <span *ngIf="f['surname']?.errors?.['required']">*Campo requerido</span>
+        <span *ngIf="f['surname']?.errors?.['valueIsEmpty']">*Campo requerido</span>
+        <span *ngIf="f['surname']?.errors?.['minlength']">*Campo requerido</span>
+        <span *ngIf="f['surname']?.errors?.['pattern']">*Caracter no permitido</span>
+      </div>
+    </div>
+  </div>
+  <div class="input-div">
+    <div class="input-icon">
+      <input type="email" placeholder="Correo electrónico" formControlName="email" (focus)="showEmailErrors = true"
+        (blur)="showEmailErrors = false" />
+      <i *ngIf="f['email'].touched && f['email'].invalid && !showEmailErrors"
+        class="material-symbols-outlined">error</i>
+    </div>
+    <div *ngIf="f['email'].invalid && f['email'].touched && showEmailErrors">
+      <span *ngIf="f['email']?.errors?.['required']">*Campo requerido</span>
+      <span *ngIf="f['email']?.errors?.['email']">*Formato de email incorrecto</span>
+      <span *ngIf="f['email']?.hasError('emailExists')">*Este correo ya está en uso</span>
+    </div>
+  </div>
+  <div class="input-div">
+    <div class="input-icon">
+      <input type="password" placeholder="Contraseña" formControlName="password" (focus)="showPasswordErrors = true"
+        (blur)="showPasswordErrors = false" />
+      <i *ngIf="
+          f['password'].touched && f['password'].invalid && !showPasswordErrors
+        " class="material-symbols-outlined">error</i>
+    </div>
+    <div *ngIf="
+        f['password'].touched && f['password'].invalid && showPasswordErrors
+      ">
+      <span class="error-span" *ngIf="f['password']?.errors?.['required']">*Campo requerido</span>
+      <span class="error-span" *ngIf="f['password']?.errors?.['minlength']">*Mínimo 8 caracteres</span>
+      <span class="error-span" *ngIf="f['password']?.errors?.['maxlength']">*Máximo 20 caracteres</span>
+      <span class="error-span" *ngIf="f['password']?.errors?.['pattern'] && !f['password']?.errors?.['minlength']">
+        *Debe contener de mayúscula, minúscula, número y carácter especial
+      </span>
+    </div>
+  </div>
+  <div class="input-div">
+    <div class="input-icon">
+      <input type="password" placeholder="Repetir contraseña" formControlName="repeatPassword"
+        (focus)="showRepeatPasswordErrors = true" (blur)="showRepeatPasswordErrors = false" />
+      <i *ngIf="
+          f['repeatPassword'].touched &&
+          f['repeatPassword'].invalid &&
+          !showRepeatPasswordErrors
+        " class="material-symbols-outlined">error</i>
+    </div>
+    <div *ngIf="
+        f['repeatPassword'].touched &&
+        f['repeatPassword'].invalid &&
+        showRepeatPasswordErrors
+      ">
+      <span class="error-span" *ngIf="f['repeatPassword']?.errors?.['required']">*Campo requerido</span>
+      <span class="error-span" *ngIf="f['repeatPassword'].hasError('matchPasswords')">*Las contraseñas deben
+        coincidir</span>
+    </div>
+  </div>
+  <div class="date-div">
+    <div class="date-select">
+      <select formControlName="day" (focus)="markSelectAsTouched(); showDateErrors = true"
+        (blur)="showDateErrors = false">
+        <option *ngFor="let day of days" [value]="day.toString().padStart(2, '0')">
+          {{ day }}
+        </option>
+      </select>
+      <select formControlName="month" (focus)="markSelectAsTouched(); showDateErrors = true"
+        (blur)="showDateErrors = false">
+        <option *ngFor="let month of months" [value]="month.number">
+          {{ month.name }}
+        </option>
+      </select>
+      <select formControlName="year" (focus)="markSelectAsTouched(); showDateErrors = true"
+        (blur)="showDateErrors = false">
+        <option *ngFor="let year of years" [value]="year">{{ year }}</option>
+      </select>
+    </div>
+  </div>
+  <div class="date-errors">
+    <i *ngIf="f['day'].touched && f['day'].invalid && !showDateErrors" class="material-symbols-outlined">error</i>
+    <span class="error-span" *ngIf="f['day'].touched && f['day'].invalid && showDateErrors">*Debes ser mayor de 18
+      años<br />para registrarte</span>
+  </div>
+  <button class="register-button" [disabled]="!form || !form.valid || !form.dirty" type="submit">
+    Registrarse
+  </button>
+  <a href="login" class="redirect">¡Ya tengo una cuenta!</a>
+</form>
