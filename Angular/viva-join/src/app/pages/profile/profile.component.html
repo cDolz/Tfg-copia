@@ -1,20 +1,64 @@
-<div class="page">
-    <div class="title">
-        <h1>Bienvenido, {{ user?.name }}</h1>
-    </div>
-    <div class="user-data">
-        <h1>Datos del usuario:</h1>
-        <p>Nombre completo: <strong>{{ user?.name }} {{ user?.surname }}</strong></p>
-        <p>Fecha de nacimiento: <strong> {{ user?.birthdate }} </strong></p>
-    </div>
+<div
+  *ngIf="confirmUnsubscribe"
+  class="confirm-unsubscribe"
+  (click)="displayConfirmUnsubscribe(false, '', '', '', '')"
+>
+  <div (click)="$event.stopPropagation()">
+    <p>
+      ¿Estás seguro de que quieres cancelar tu asistencia a
+      {{ unsubscribeTitle }} el día {{ unsubscribeDate }} a las
+      {{ unsubscribeHour }} horas?
+    </p>
     <div>
-        <h1>Mis suscripciones:</h1>
-    </div>    
-    <div class="grid-div">
-        <div *ngFor="let subscription of subscriptions">
-            <app-shared-event-miniature [title]="subscription.eventId.title" [file]="subscription.eventId.file"
-                [route]="'/home/event/' + subscription.eventId.title"></app-shared-event-miniature>
-            <p>Asistencia el día {{ subscription.eventDateId.date }} a las {{ subscription.eventDateId.hour }} horas</p>            
-        </div>
+      <button (click)="unsubscribe()">Confirmar</button>
+      <button (click)="displayConfirmUnsubscribe(false, '', '', '', '')">
+        Cancelar
+      </button>
     </div>
+  </div>
+</div>
+<div class="page">
+  <div class="title">
+    <h1>Bienvenido, {{ user?.name }}</h1>
+  </div>
+  <div class="user-data">
+    <h1>Datos del usuario:</h1>
+    <p>
+      Nombre completo: <strong>{{ user?.name }} {{ user?.surname }}</strong>
+    </p>
+    <p>
+      Fecha de nacimiento: <strong> {{ user?.birthdate }} </strong>
+    </p>
+  </div>
+  <div>
+    <h1>Mis suscripciones:</h1>
+  </div>
+  <div class="grid-div">
+    <div *ngFor="let subscription of subscriptions">
+      <app-shared-event-miniature
+        [title]="subscription.eventId.title"
+        [file]="subscription.eventId.file"
+        [route]="'/home/event/' + subscription.eventId.title"
+      ></app-shared-event-miniature>
+      <p>
+        Asistencia el día {{ subscription.eventDateId.date }} a las
+        {{ subscription.eventDateId.hour }} horas
+      </p>
+      <div>
+        <button
+          (click)="
+            displayConfirmUnsubscribe(
+              true,
+              subscription.eventId.title,
+              subscription.eventDateId.date,
+              subscription.eventDateId.hour,
+              subscription._id
+            )
+          "
+        >
+          Cancelar asistencia
+        </button>
+      </div>
+    </div>
+  </div>
 </div>

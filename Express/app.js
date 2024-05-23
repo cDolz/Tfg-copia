@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const cors = require('cors');
 const errorHandler = require('./middleware/errorHandler');
+const cleanup = require('./scripts/cleanup');
 
 // Cargamos las variables de .env
 require('dotenv').config();
@@ -22,6 +23,7 @@ app.use('/api', require('./routes/api'));
 
 // Ponemos el servidor en escucha
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () =>{
+app.listen(PORT, async () =>{
     console.log(`Servidor escuchando en puerto ${PORT}`);
+    await cleanup();
 });

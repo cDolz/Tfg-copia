@@ -14,8 +14,33 @@ export class ProfileComponent implements OnInit, OnDestroy {
   user!: any;
   subscriptions!: any[];
   private unsubscribe$ = new Subject<void>();
+  confirmUnsubscribe = false;
+  unsubscribeTitle!: string;
+  unsubscribeDate!: string;
+  unsubscribeHour!: string;
+  unsubscribeId!: string;
 
   constructor(private authService: AuthService, private subscriptionsService: SubscriptionsService) { }
+
+  displayConfirmUnsubscribe(display: boolean, title: string, date: string, hour: string, id: string){
+    this.confirmUnsubscribe = display;
+    this.unsubscribeTitle = title;
+    this.unsubscribeDate = date;
+    this.unsubscribeHour = hour;
+    this.unsubscribeId = id;
+  }
+
+  unsubscribe(){
+    this.subscriptionsService.eventUnsubscribe(this.unsubscribeId).pipe(takeUntil(this.unsubscribe$)).subscribe({
+      next: () => {
+        this.subscriptions = this.subscriptions.filter(subscription => subscription._id !== this.unsubscribeId);
+        this.displayConfirmUnsubscribe(false, '', '', '', '');
+      },
+      error: (err) => {
+        console.error(err);
+      }
+    });
+  }
 
   // obtiene la información del usuario y sus suscripciones
   ngOnInit() {
@@ -26,8 +51,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
         return this.subscriptionsService.getSubscriptions(user._id).pipe(takeUntil(this.unsubscribe$));
       })
     ).subscribe({
-      next: (subscriptions) => {
-        console.log(subscriptions);
+      next: (subscriptions) => {        
         this.subscriptions = subscriptions;
       },
       error: (err) => {

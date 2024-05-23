@@ -24,4 +24,8 @@ export class SubscriptionsService {
     return this.httpClient.get<any>(`${this.baseUrl}/subscriptions/get-subscriptions/${userId}`);
   }
 
+  eventUnsubscribe(subscriptionId: string): Observable<any> {
+    return this.httpClient.delete<any>(`${this.baseUrl}/subscriptions/unsubscribe/${subscriptionId}`);
+  }
+
 }
