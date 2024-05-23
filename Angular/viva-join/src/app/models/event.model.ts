@@ -10,8 +10,7 @@ export interface EventRegisterData {
 }
 
 export interface EventRegisterDateData {
-    date: string,
-    hour: string
+    date: Date
 }
 
 
