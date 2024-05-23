@@ -96,7 +96,8 @@ export class EventRegisterFormComponent implements OnDestroy {
       ((this.form.get('dates') as FormArray).at(i) as FormArray).push(this.formBuilder.control('00', Validators.required));
       ((this.form.get('dates') as FormArray).at(i) as FormArray).push(this.formBuilder.control('00', Validators.required));
     }
-    this.years = Array(this.fDatesArrays.length).fill(this.actualDate.getFullYear());
+    this.years = Array(this.fDatesArrays.length).fill(this.actualDate.getFullYear());    
+    console.log(this.years);
   }
 
   initForm() {
@@ -122,7 +123,7 @@ export class EventRegisterFormComponent implements OnDestroy {
     if (fileInput.files && fileInput.files.length > 0) {
       const file = fileInput.files[0];
       const fileType = file.type;
-      if (fileType.match(/image\/*/) == null) {
+      if (RegExp(/image\/*/).exec(fileType) == null) {
         // El archivo no es una imagen, marca el control como inválido
         this.form.get('file')?.setErrors({ notImage: true });
       } else {
@@ -138,9 +139,8 @@ export class EventRegisterFormComponent implements OnDestroy {
     this.arrayOfDates = [];
     for (let i = 0; i < dates.length; i++) {
       this.datesRegister = {
-        date: `${dates[i][0]}-${dates[i][1]}-${this.years[i]}`,
-        hour: `${dates[i][2]}:${dates[i][3]}`
-      };
+        date: new Date(this.years[i], dates[i][1] - 1, dates[i][0], dates[i][2], dates[i][3])                 
+      };      
       this.arrayOfDates.push(this.datesRegister);
     }
     this.register = {
@@ -160,7 +160,7 @@ export class EventRegisterFormComponent implements OnDestroy {
       next: () => {
         this.router.navigate(['home/success'], { queryParams: { from: this.router.url } });
       },
-      error: (error) => {
+      error: (error: any) => {
         this.errorMessage = error.error.message;
       }
     });

@@ -16,12 +16,15 @@ router.post('/register-event', upload.single('file'), async (req, res, next) => 
         
         const dates = eventData.dates;
 
-        const eventDates = dates.map(({date, hour, participants}) => ({
-            date,
-            hour,
-            participants: 0,
-            event: event._id
-        }));
+        const eventDates = dates.map(({ date }) => {
+            const localDate = new Date(date);
+            localDate.setHours(localDate.getHours() + 2);
+            return {
+                date: localDate,            
+                participants: 0,
+                event: event._id
+            };
+        });
 
         await EventDate.insertMany(eventDates);
 

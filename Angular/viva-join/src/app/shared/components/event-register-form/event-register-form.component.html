@@ -135,7 +135,7 @@
                             {{ month.name }}
                         </option>
                     </select>
-                    <p>de {{years[i]}}</p>
+                    <p>de {{ years[i] }}</p>
                     <select formControlName="2">
                         <option *ngFor="let hour of hours" [value]="hour.toString().padStart(2, '0')">
                             {{ hour.toString().padStart(2, '0') }}
