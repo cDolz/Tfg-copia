@@ -1,17 +1,17 @@
 <div
   *ngIf="confirmUnsubscribe"
   class="confirm-unsubscribe"
-  (click)="displayConfirmUnsubscribe(false, '', '', '', '')"
+  (click)="displayConfirmUnsubscribe(false, '', '', '')"
 >
   <div (click)="$event.stopPropagation()">
     <p>
       ¿Estás seguro de que quieres cancelar tu asistencia a
-      {{ unsubscribeTitle }} el día {{ unsubscribeDate }} a las
-      {{ unsubscribeHour }} horas?
+      {{ unsubscribeTitle }} el día {{ unsubscribeDate | date:'dd-MM-yyyy' }} a las
+      {{ unsubscribeDate | date:'HH:mm' }} horas?
     </p>
     <div>
       <button (click)="unsubscribe()">Confirmar</button>
-      <button (click)="displayConfirmUnsubscribe(false, '', '', '', '')">
+      <button (click)="displayConfirmUnsubscribe(false, '', '', '')">
         Cancelar
       </button>
     </div>
@@ -24,11 +24,15 @@
   <div class="user-data">
     <h1>Datos del usuario:</h1>
     <p>
-      Nombre completo: <strong>{{ user?.name }} {{ user?.surname }}</strong>
+      Nombre completo: <strong>{{ user?.name }} {{ user?.surname }}</strong>      
     </p>
     <p>
       Fecha de nacimiento: <strong> {{ user?.birthdate }} </strong>
+
     </p>
+    <p>
+      Correo electrónico: <strong> {{ user?.email }} </strong>
+    </p>    
   </div>
   <div>
     <h1>Mis suscripciones:</h1>
@@ -41,8 +45,8 @@
         [route]="'/home/event/' + subscription.eventId.title"
       ></app-shared-event-miniature>
       <p>
-        Asistencia el día {{ subscription.eventDateId.date }} a las
-        {{ subscription.eventDateId.hour }} horas
+        Asistencia el día {{ subscription.eventDateId.date | date:'dd-MM-yyyy' }} a las
+        {{ subscription.eventDateId.date | date:'HH:mm' }} horas
       </p>
       <div>
         <button
@@ -50,8 +54,7 @@
             displayConfirmUnsubscribe(
               true,
               subscription.eventId.title,
-              subscription.eventDateId.date,
-              subscription.eventDateId.hour,
+              subscription.eventDateId.date,              
               subscription._id
             )
           "

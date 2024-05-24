@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subject, takeUntil } from 'rxjs';
 import { CommonService } from '../../../services/common.service';
@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
   templateUrl: './event-register-form.component.html',
   styleUrl: './event-register-form.component.scss'
 })
-export class EventRegisterFormComponent implements OnDestroy {
+export class EventRegisterFormComponent implements OnInit, OnDestroy {
 
   form!: FormGroup;
   register!: EventRegisterData;
@@ -40,7 +40,10 @@ export class EventRegisterFormComponent implements OnDestroy {
   showPeriodicityErrors: boolean = false;
   showDatesErrors: boolean = false;
 
-  constructor(private formBuilder: FormBuilder, private eventsService: EventsService, private commonService: CommonService, private router: Router) {
+  constructor(private formBuilder: FormBuilder, private eventsService: EventsService, private commonService: CommonService, private router: Router, private cdr: ChangeDetectorRef) {  
+  }
+
+  ngOnInit() {
     this.initForm();
   }
 
@@ -96,8 +99,8 @@ export class EventRegisterFormComponent implements OnDestroy {
       ((this.form.get('dates') as FormArray).at(i) as FormArray).push(this.formBuilder.control('00', Validators.required));
       ((this.form.get('dates') as FormArray).at(i) as FormArray).push(this.formBuilder.control('00', Validators.required));
     }
-    this.years = Array(this.fDatesArrays.length).fill(this.actualDate.getFullYear());    
-    console.log(this.years);
+    this.years = Array(this.fDatesArrays.length).fill(this.actualDate.getFullYear());
+    this.cdr.detectChanges();
   }
 
   initForm() {
@@ -112,7 +115,7 @@ export class EventRegisterFormComponent implements OnDestroy {
       organizer: ['', [Validators.required, MyValidators.trimValueAndCheck]],
       file: ['', [Validators.required]],
       periodicity: ['1', [Validators.required, Validators.min(1), MyValidators.maxEntries]],
-      dates: this.formBuilder.array([], MyValidators.datesRegisterUnique(this.years))
+      dates: this.formBuilder.array([], MyValidators.datesRegisterUnique(() => this.years))
     }, { validators: [MyValidators.minDuration] });
     this.updateNumberOfEntries();
   }

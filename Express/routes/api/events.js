@@ -4,8 +4,8 @@ const upload = require('../../middleware/uploadFiles');
 const Event = require('../../models/event.model');
 const EventDate = require('../../models/eventDate.model');
 
-router.post('/register-event', upload.single('file'), async (req, res, next) => {    
-    try{
+router.post('/register-event', upload.single('file'), async (req, res, next) => {
+    try {
         const eventData = JSON.parse(req.body.event);
 
         const event = await Event.create({
@@ -13,14 +13,12 @@ router.post('/register-event', upload.single('file'), async (req, res, next) => 
             file: `http://localhost:3000/${req.file.path.replace(/\\/g, '/')}`,
             popularity: 0
         });
-        
+
         const dates = eventData.dates;
 
         const eventDates = dates.map(({ date }) => {
-            const localDate = new Date(date);
-            localDate.setHours(localDate.getHours() + 2);
             return {
-                date: localDate,            
+                date,
                 participants: 0,
                 event: event._id
             };
@@ -30,34 +28,34 @@ router.post('/register-event', upload.single('file'), async (req, res, next) => 
 
         res.json({ success: 'Event and event dates registered!' });
 
-    }catch(error){
+    } catch (error) {
         next(error);
     }
 });
 
 router.get('/get-events/:category', async (req, res, next) => {
-    try{
-        const category = decodeURIComponent(req.params.category);        
+    try {
+        const category = decodeURIComponent(req.params.category);
         const events = await Event.find({ categorization: category });
         res.json(events);
-    }catch(error){
+    } catch (error) {
         next(error);
     }
 });
 
 router.get('/get-ten-events/:category', async (req, res, next) => {
-    try{
-        const category = decodeURIComponent(req.params.category);        
+    try {
+        const category = decodeURIComponent(req.params.category);
         const events = await Event.find({ categorization: category }).limit(10);
         res.json(events);
-    }catch(error){
+    } catch (error) {
         next(error);
     }
 });
 
 router.get('/get-event/:title', async (req, res, next) => {
     try {
-        const title = decodeURIComponent(req.params.title);        
+        const title = decodeURIComponent(req.params.title);
         const event = await Event.findOne({ title: title });
 
         if (!event) {
@@ -75,10 +73,10 @@ router.get('/get-event/:title', async (req, res, next) => {
 });
 
 router.get('/get-top-ten-events', async (req, res, next) => {
-    try{
+    try {
         const events = await Event.find().sort({ popularity: -1 }).limit(10);
         res.json(events);
-    }catch(error){
+    } catch (error) {
         next(error);
     }
 });

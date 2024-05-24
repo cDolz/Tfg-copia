@@ -1,22 +1,18 @@
+const EventDate = require('../models/eventDate.model');
+const Subscription = require('../models/subscription.model');
+
 const cleanup = async () => {
     const now = new Date();
-    // now.setHours(0, 0, 0, 0); // set time to 00:00:00.000
+    
+    const oldEventDates = await EventDate.find({ date: { $lt: now } });
+    
+    const oldEventDateIds = oldEventDates.map(eventDate => eventDate._id);
+    
+    await Subscription.deleteMany({ eventDateId: { $in: oldEventDateIds } });
+    
+    await EventDate.deleteMany({ _id: { $in: oldEventDateIds } });
 
-    // // Fetch all documents
-    // const eventDates = await EventDate.find();
-
-    // // Filter out the documents that have a past date
-    // const pastEventDates = eventDates.filter(eventDate => {
-    //     const [day, month, year] = eventDate.date.split('-').map(Number);
-    //     const dateToCompare = new Date(year, month - 1, day); // month is 0-indexed
-    //     return dateToCompare < now;
-    // });
-
-    // // Delete the documents that have a past date
-    // const deletePromises = pastEventDates.map(eventDate => EventDate.deleteOne({ _id: eventDate._id }));
-    // await Promise.all(deletePromises);
-
-    // console.log('Cleanup complete.');
+    console.log('Cleanup complete.');
 };
 
 module.exports = cleanup;

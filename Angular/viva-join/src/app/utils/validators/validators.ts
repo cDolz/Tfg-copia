@@ -77,13 +77,12 @@ export class MyValidators {
     }
   }
 
-  static datesRegisterUnique(years: number[]) {
+  static datesRegisterUnique(getYears: () => number[]) {
     return (control: AbstractControl): {[key: string]: any} | null => {
       const dates = control.value;
-      const arrayOfDates: EventRegisterDateData[] = [];
-      console.log(years);
+      const years = getYears();
+      const arrayOfDates: EventRegisterDateData[] = [];      
       for (let i = 0; i < dates.length; i++) {
-        console.log(years[i], dates[i][1], dates[i][0], dates[i][2], dates[i][3]);
         const datesRegister = {
           date: new Date(years[i], dates[i][1] - 1, dates[i][0], dates[i][2], dates[i][3])
         };          

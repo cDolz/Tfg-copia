@@ -34,6 +34,7 @@ export class EventDetailComponent implements OnInit, OnDestroy {
     this.eventsService.getEventDetail(this.event).pipe(takeUntil(this.unsubscribe$)).subscribe((response: { event: any, eventDates: any[] }) => {
       this.eventData = response.event;
       this.eventDates = response.eventDates;
+      this.eventDates.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
     });
     this.authService.getUserData(Cookies.get('email')!).pipe(takeUntil(this.unsubscribe$)).subscribe({
       next: (user) => {

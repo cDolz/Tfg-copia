@@ -8,9 +8,8 @@
             <form [formGroup]="form" (ngSubmit)="onSubmit()">
                 <div class="input-label" *ngFor="let eventDate of eventDates; let i = index">
                     <input type="radio" id="input{{ i }}" formControlName="options" [value]="eventDate._id">
-                    <label for="input{{ i }}">{{ eventDate.date }} a las {{ eventDate.hour }}</label>
+                    <label for="input{{ i }}">Día {{ eventDate.date | date:'dd-MM-yyyy' }} a las {{ eventDate.date | date:'HH:mm' }} h</label>
                 </div>
-
                 <button type="submit" [disabled]="!form.valid">Suscribirse al evento</button>
             </form>
         </div>

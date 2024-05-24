@@ -16,17 +16,15 @@ export class ProfileComponent implements OnInit, OnDestroy {
   private unsubscribe$ = new Subject<void>();
   confirmUnsubscribe = false;
   unsubscribeTitle!: string;
-  unsubscribeDate!: string;
-  unsubscribeHour!: string;
+  unsubscribeDate!: string;  
   unsubscribeId!: string;
 
   constructor(private authService: AuthService, private subscriptionsService: SubscriptionsService) { }
 
-  displayConfirmUnsubscribe(display: boolean, title: string, date: string, hour: string, id: string){
+  displayConfirmUnsubscribe(display: boolean, title: string, date: string, id: string){
     this.confirmUnsubscribe = display;
     this.unsubscribeTitle = title;
-    this.unsubscribeDate = date;
-    this.unsubscribeHour = hour;
+    this.unsubscribeDate = date;    
     this.unsubscribeId = id;
   }
 
@@ -34,7 +32,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.subscriptionsService.eventUnsubscribe(this.unsubscribeId).pipe(takeUntil(this.unsubscribe$)).subscribe({
       next: () => {
         this.subscriptions = this.subscriptions.filter(subscription => subscription._id !== this.unsubscribeId);
-        this.displayConfirmUnsubscribe(false, '', '', '', '');
+        this.displayConfirmUnsubscribe(false, '', '', '');
       },
       error: (err) => {
         console.error(err);
